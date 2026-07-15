@@ -28,6 +28,9 @@ jobs:
       - name: Validate schemas, registry, skills, and docs
         run: python tools/validate_repository.py
 
+      - name: Run adapter contract tests
+        run: python -m unittest discover -s tests -v
+
   docs:
     name: Strict documentation build
     runs-on: ubuntu-latest
