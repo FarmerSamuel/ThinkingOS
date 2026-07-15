@@ -31,6 +31,7 @@ The Engine stops or loops when a blocking ambiguity, contradiction, or missing d
 - Read the [Architecture](architecture.md) for layer responsibilities.
 - Review the [Skill Specification](skill-specification.md) before authoring a skill.
 - Use the [Developer Guide](developer-guide.md) to validate and test the repository.
+- Integrate with the framework through the [SDK Guide](sdk-guide.md).
 - Follow the [Skill Author Guide](skill-author-guide.md) to create a conforming package.
 - See the [Thinking Graph](thinking-graph.md) for skill relationships.
 

@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "thinkingos-framework"
+version = "1.0.0"
+description = "AI-agnostic framework for reusable, validated thinking skills"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{name = "FarmerSamuel"}]
+dependencies = [
+  "jsonschema>=4.23,<5",
+  "PyYAML>=6,<7",
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+
+[project.urls]
+Documentation = "https://farmersamuel.github.io/ThinkingOS/"
+Repository = "https://github.com/FarmerSamuel/ThinkingOS"
+Issues = "https://github.com/FarmerSamuel/ThinkingOS/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["thinkingos", "adapters"]
