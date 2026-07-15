@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thinkingos.dev/schemas/thinking-language.schema.json",
+  "title": "ThinkingOS Language Document",
+  "description": "A platform-independent JSON abstract syntax tree for ThinkingOS Language.",
+  "type": "object",
+  "required": ["languageVersion", "statements"],
+  "properties": {
+    "languageVersion": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "statements": {
+      "type": "array",
+      "minItems": 1,
+      "contains": { "$ref": "#/$defs/skillReference" },
+      "items": {
+        "oneOf": [
+          { "$ref": "#/$defs/skillReference" },
+          { "$ref": "#/$defs/elementReference" },
+          { "$ref": "#/$defs/contextReference" },
+          { "$ref": "#/$defs/stateReference" },
+          { "$ref": "#/$defs/evaluationReference" },
+          { "$ref": "#/$defs/logicExpression" },
+          { "$ref": "#/$defs/comment" }
+        ]
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Namespaced, platform-independent document extensions."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Za-z0-9]*$"
+    },
+    "skillReference": {
+      "type": "object",
+      "required": ["type", "name"],
+      "properties": {
+        "type": { "const": "skill" },
+        "name": { "$ref": "#/$defs/identifier" }
+      },
+      "additionalProperties": false
+    },
+    "elementReference": {
+      "type": "object",
+      "required": ["type", "name"],
+      "properties": {
+        "type": { "const": "element" },
+        "name": { "$ref": "#/$defs/identifier" }
+      },
+      "additionalProperties": false
+    },
+    "contextReference": {
+      "type": "object",
+      "required": ["type", "name"],
+      "properties": {
+        "type": { "const": "context" },
+        "name": { "$ref": "#/$defs/identifier" }
+      },
+      "additionalProperties": false
+    },
+    "stateReference": {
+      "type": "object",
+      "required": ["type", "name"],
+      "properties": {
+        "type": { "const": "state" },
+        "name": { "$ref": "#/$defs/identifier" }
+      },
+      "additionalProperties": false
+    },
+    "evaluationReference": {
+      "type": "object",
+      "required": ["type", "name"],
+      "properties": {
+        "type": { "const": "evaluation" },
+        "name": { "$ref": "#/$defs/identifier" }
+      },
+      "additionalProperties": false
+    },
+    "operand": {
+      "oneOf": [
+        { "$ref": "#/$defs/skillReference" },
+        { "$ref": "#/$defs/elementReference" },
+        { "$ref": "#/$defs/contextReference" },
+        { "$ref": "#/$defs/stateReference" },
+        { "$ref": "#/$defs/evaluationReference" },
+        {
+          "type": "object",
+          "required": ["type", "value"],
+          "properties": {
+            "type": { "const": "proposition" },
+            "value": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "logicExpression": {
+      "type": "object",
+      "required": ["type", "left", "operator", "right"],
+      "properties": {
+        "type": { "const": "logic" },
+        "left": { "$ref": "#/$defs/operand" },
+        "operator": {
+          "type": "string",
+          "enum": ["->", "\u2193"]
+        },
+        "right": { "$ref": "#/$defs/operand" },
+        "rationale": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "comment": {
+      "type": "object",
+      "required": ["type", "value"],
+      "properties": {
+        "type": { "const": "comment" },
+        "value": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    }
+  }
+}
