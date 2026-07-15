@@ -1,0 +1,24 @@
+id: deep-processing
+name: Deep Processing
+version: 0.1.0
+status: draft
+category: learning
+author: FarmerSamuel
+requires:
+  - ValidatedProblem
+  - ProblemComponents
+  - SourceMaterial
+produces:
+  - ElaboratedConcepts
+  - ExplanatoryLinks
+  - UnderstandingGaps
+dependencies:
+  - right-problem
+  - break-it-down
+nextSkill:
+  - id: make-association
+    condition: The current output satisfies the registered transition and dependency contracts.
+  - id: learning-triangle
+    condition: The current output satisfies the registered transition and dependency contracts.
+  - id: mind-map
+    condition: The current output satisfies the registered transition and dependency contracts.

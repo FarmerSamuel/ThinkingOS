@@ -1,0 +1,321 @@
+{
+  "name": "mind-map",
+  "version": "0.1.0",
+  "description": "Represent concept hierarchy and cross-links without confusing visual proximity with logical evidence.",
+  "purpose": {
+    "problem": "Represent concept hierarchy and cross-links without confusing visual proximity with logical evidence.",
+    "outcome": "Produce validated ConceptGraph, ConceptHierarchy, CrossLinks.",
+    "inScope": [
+      "CentralTopic",
+      "Concept",
+      "Hierarchy",
+      "CrossLink",
+      "ConceptGraph"
+    ],
+    "outOfScope": [
+      "Provider-specific execution",
+      "Unvalidated solution generation"
+    ]
+  },
+  "thinkingHabit": "Externalize structure so hierarchy, relationships, and gaps can be inspected.",
+  "thinkingElements": [
+    "CentralTopic",
+    "Concept",
+    "Hierarchy",
+    "CrossLink",
+    "ConceptGraph"
+  ],
+  "requiredInputs": [
+    {
+      "name": "problemComponents",
+      "description": "The problemcomponents required by Mind Map.",
+      "required": true,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    },
+    {
+      "name": "associations",
+      "description": "The associations required by Mind Map.",
+      "required": true,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    },
+    {
+      "name": "centralTopic",
+      "description": "The centraltopic required by Mind Map.",
+      "required": false,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    }
+  ],
+  "validation": [
+    {
+      "id": "MINDMAP-V01",
+      "description": "Required inputs must be present, relevant, and mutually consistent.",
+      "condition": "required inputs pass the shared validation framework",
+      "onFailure": "Return needs clarification with one prioritized question."
+    },
+    {
+      "id": "MINDMAP-V02",
+      "description": "Material ambiguity and missing information must be surfaced.",
+      "condition": "no blocking unknown is hidden",
+      "onFailure": "Record the gap and stop dependent logic."
+    },
+    {
+      "id": "MINDMAP-V03",
+      "description": "Inputs must satisfy registered dependency semantics.",
+      "condition": "dependency outputs or validated equivalents are available",
+      "onFailure": "Recommend the missing prerequisite."
+    }
+  ],
+  "logic": [
+    {
+      "id": "MINDMAP-L01",
+      "description": "Identify and normalize the skill's thinking elements: CentralTopic, Concept, Hierarchy, CrossLink, ConceptGraph.",
+      "condition": "each required element has evidence or explicit unknown status",
+      "onFailure": "Request or record the missing element."
+    },
+    {
+      "id": "MINDMAP-L02",
+      "description": "Apply the Mind Map relationship rules without introducing platform assumptions.",
+      "condition": "relationships are explicit and testable",
+      "onFailure": "Record the unsupported relationship."
+    },
+    {
+      "id": "MINDMAP-L03",
+      "description": "Test contradictions, alternatives, and failure conditions.",
+      "condition": "material alternatives are considered",
+      "onFailure": "Reduce confidence and disclose the limitation."
+    },
+    {
+      "id": "MINDMAP-L04",
+      "description": "Generate a schema-compatible evaluation and next-step recommendation.",
+      "condition": "scores, reasoning, and transition are consistent",
+      "onFailure": "Return incomplete rather than guessing."
+    }
+  ],
+  "evaluation": {
+    "criteria": [
+      {
+        "name": "Coverage Score",
+        "description": "Quality of coverage in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "Hierarchy Score",
+        "description": "Quality of hierarchy in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "LinkValidity Score",
+        "description": "Quality of linkvalidity in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "Readability Score",
+        "description": "Quality of readability in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "GoalAlignment Score",
+        "description": "Quality of goalalignment in the current reasoning.",
+        "weight": 0.2
+      }
+    ],
+    "scoringScale": {
+      "minimum": 0,
+      "maximum": 4,
+      "labels": {
+        "0": "unusable",
+        "1": "weak",
+        "2": "partial",
+        "3": "sufficient",
+        "4": "robust"
+      }
+    }
+  },
+  "conversationRules": [
+    "Ask one material question at a time.",
+    "Separate facts, assumptions, and interpretations.",
+    "Explain why a clarification affects the evaluation.",
+    "Stop when inputs are sufficient."
+  ],
+  "output": {
+    "schema": "../../schemas/output.schema.json",
+    "extensions": {
+      "scoreReporting": {
+        "overall": "evaluation.score",
+        "dimensions": "reasoning"
+      }
+    }
+  },
+  "neverRules": [
+    "Never fabricate missing information.",
+    "Never bypass a blocking validation failure.",
+    "Never hide uncertainty behind a score.",
+    "Never invoke an unsatisfied downstream skill."
+  ],
+  "nextSkill": [
+    {
+      "skill": "complexity",
+      "condition": "The current output satisfies the registered transition contract.",
+      "reason": "Continue reasoning with Complexity."
+    },
+    {
+      "skill": "learning-triangle",
+      "condition": "The current output satisfies the registered transition contract.",
+      "reason": "Continue reasoning with LearningTriangle."
+    }
+  ],
+  "examples": [
+    {
+      "name": "Valid case",
+      "input": {
+        "problemComponents": "Validated input",
+        "associations": "Relevant context"
+      },
+      "expectedOutput": {
+        "status": "sufficient"
+      }
+    },
+    {
+      "name": "Incomplete case",
+      "input": {
+        "problemComponents": "Ambiguous input"
+      },
+      "expectedOutput": {
+        "status": "incomplete",
+        "questionRequired": true
+      }
+    }
+  ],
+  "references": [
+    {
+      "title": "ThinkingOS Skill Specification",
+      "citation": "../../docs/skill-specification.md"
+    },
+    {
+      "title": "ThinkingOS Reasoning Engine",
+      "citation": "../../core/engine.md"
+    }
+  ],
+  "tests": [
+    {
+      "name": "mind-map-T01",
+      "input": {
+        "problemComponents": "valid input"
+      },
+      "expected": {
+        "check": "successful evaluation"
+      }
+    },
+    {
+      "name": "mind-map-T02",
+      "input": {
+        "problemComponents": "missing required input"
+      },
+      "expected": {
+        "check": "clarification"
+      }
+    },
+    {
+      "name": "mind-map-T03",
+      "input": {
+        "problemComponents": "ambiguous input"
+      },
+      "expected": {
+        "check": "ambiguity detected"
+      }
+    },
+    {
+      "name": "mind-map-T04",
+      "input": {
+        "problemComponents": "contradictory input"
+      },
+      "expected": {
+        "check": "contradiction recorded"
+      }
+    },
+    {
+      "name": "mind-map-T05",
+      "input": {
+        "problemComponents": "unsupported assumption"
+      },
+      "expected": {
+        "check": "assumption disclosed"
+      }
+    },
+    {
+      "name": "mind-map-T06",
+      "input": {
+        "problemComponents": "dependency missing"
+      },
+      "expected": {
+        "check": "prerequisite recommended"
+      }
+    },
+    {
+      "name": "mind-map-T07",
+      "input": {
+        "problemComponents": "alternative explanation"
+      },
+      "expected": {
+        "check": "alternative tested"
+      }
+    },
+    {
+      "name": "mind-map-T08",
+      "input": {
+        "problemComponents": "boundary condition"
+      },
+      "expected": {
+        "check": "boundary handled"
+      }
+    },
+    {
+      "name": "mind-map-T09",
+      "input": {
+        "problemComponents": "low evidence"
+      },
+      "expected": {
+        "check": "confidence reduced"
+      }
+    },
+    {
+      "name": "mind-map-T10",
+      "input": {
+        "problemComponents": "complete input"
+      },
+      "expected": {
+        "check": "output schema conformance"
+      }
+    }
+  ],
+  "extensions": {
+    "goldenSkillCompatible": true,
+    "documentation": {
+      "workflow": "workflow.md",
+      "validation": "validation.md",
+      "evaluation": "evaluation.md",
+      "rubric": "rubric.md",
+      "examples": "examples.md",
+      "tests": "tests.md",
+      "references": "references.md"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+id: mind-map
+name: Mind Map
+version: 0.1.0
+status: draft
+category: synthesis
+author: FarmerSamuel
+requires:
+  - ProblemComponents
+  - Associations
+  - CentralTopic
+produces:
+  - ConceptGraph
+  - ConceptHierarchy
+  - CrossLinks
+dependencies:
+  - break-it-down
+  - make-association
+nextSkill:
+  - id: complexity
+    condition: The current output satisfies the registered transition and dependency contracts.
+  - id: learning-triangle
+    condition: The current output satisfies the registered transition and dependency contracts.

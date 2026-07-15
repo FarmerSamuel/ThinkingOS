@@ -1,0 +1,21 @@
+id: analogy
+name: Analogy
+version: 0.1.0
+status: draft
+category: reasoning
+author: FarmerSamuel
+requires:
+  - ValidatedProblem
+  - TargetStructure
+  - CandidateAnalogues
+produces:
+  - SourceAnalogue
+  - StructuralMapping
+  - AnalogyLimitations
+dependencies:
+  - right-problem
+nextSkill:
+  - id: make-association
+    condition: The current output satisfies the registered transition and dependency contracts.
+  - id: deep-processing
+    condition: The current output satisfies the registered transition and dependency contracts.

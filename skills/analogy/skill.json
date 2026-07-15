@@ -1,0 +1,321 @@
+{
+  "name": "analogy",
+  "version": "0.1.0",
+  "description": "Transfer insight through explicit structural mappings while exposing where an analogy fails.",
+  "purpose": {
+    "problem": "Transfer insight through explicit structural mappings while exposing where an analogy fails.",
+    "outcome": "Produce validated SourceAnalogue, StructuralMapping, AnalogyLimitations.",
+    "inScope": [
+      "TargetStructure",
+      "SourceAnalogue",
+      "StructuralMapping",
+      "Difference",
+      "Limitation"
+    ],
+    "outOfScope": [
+      "Provider-specific execution",
+      "Unvalidated solution generation"
+    ]
+  },
+  "thinkingHabit": "Compare relationships, not surface resemblance.",
+  "thinkingElements": [
+    "TargetStructure",
+    "SourceAnalogue",
+    "StructuralMapping",
+    "Difference",
+    "Limitation"
+  ],
+  "requiredInputs": [
+    {
+      "name": "validatedProblem",
+      "description": "The validatedproblem required by Analogy.",
+      "required": true,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    },
+    {
+      "name": "targetStructure",
+      "description": "The targetstructure required by Analogy.",
+      "required": true,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    },
+    {
+      "name": "candidateAnalogues",
+      "description": "The candidateanalogues required by Analogy.",
+      "required": false,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    }
+  ],
+  "validation": [
+    {
+      "id": "ANALOGY-V01",
+      "description": "Required inputs must be present, relevant, and mutually consistent.",
+      "condition": "required inputs pass the shared validation framework",
+      "onFailure": "Return needs clarification with one prioritized question."
+    },
+    {
+      "id": "ANALOGY-V02",
+      "description": "Material ambiguity and missing information must be surfaced.",
+      "condition": "no blocking unknown is hidden",
+      "onFailure": "Record the gap and stop dependent logic."
+    },
+    {
+      "id": "ANALOGY-V03",
+      "description": "Inputs must satisfy registered dependency semantics.",
+      "condition": "dependency outputs or validated equivalents are available",
+      "onFailure": "Recommend the missing prerequisite."
+    }
+  ],
+  "logic": [
+    {
+      "id": "ANALOGY-L01",
+      "description": "Identify and normalize the skill's thinking elements: TargetStructure, SourceAnalogue, StructuralMapping, Difference, Limitation.",
+      "condition": "each required element has evidence or explicit unknown status",
+      "onFailure": "Request or record the missing element."
+    },
+    {
+      "id": "ANALOGY-L02",
+      "description": "Apply the Analogy relationship rules without introducing platform assumptions.",
+      "condition": "relationships are explicit and testable",
+      "onFailure": "Record the unsupported relationship."
+    },
+    {
+      "id": "ANALOGY-L03",
+      "description": "Test contradictions, alternatives, and failure conditions.",
+      "condition": "material alternatives are considered",
+      "onFailure": "Reduce confidence and disclose the limitation."
+    },
+    {
+      "id": "ANALOGY-L04",
+      "description": "Generate a schema-compatible evaluation and next-step recommendation.",
+      "condition": "scores, reasoning, and transition are consistent",
+      "onFailure": "Return incomplete rather than guessing."
+    }
+  ],
+  "evaluation": {
+    "criteria": [
+      {
+        "name": "StructuralFit Score",
+        "description": "Quality of structuralfit in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "Relevance Score",
+        "description": "Quality of relevance in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "DifferenceAwareness Score",
+        "description": "Quality of differenceawareness in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "Evidence Score",
+        "description": "Quality of evidence in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "TransferValidity Score",
+        "description": "Quality of transfervalidity in the current reasoning.",
+        "weight": 0.2
+      }
+    ],
+    "scoringScale": {
+      "minimum": 0,
+      "maximum": 4,
+      "labels": {
+        "0": "unusable",
+        "1": "weak",
+        "2": "partial",
+        "3": "sufficient",
+        "4": "robust"
+      }
+    }
+  },
+  "conversationRules": [
+    "Ask one material question at a time.",
+    "Separate facts, assumptions, and interpretations.",
+    "Explain why a clarification affects the evaluation.",
+    "Stop when inputs are sufficient."
+  ],
+  "output": {
+    "schema": "../../schemas/output.schema.json",
+    "extensions": {
+      "scoreReporting": {
+        "overall": "evaluation.score",
+        "dimensions": "reasoning"
+      }
+    }
+  },
+  "neverRules": [
+    "Never fabricate missing information.",
+    "Never bypass a blocking validation failure.",
+    "Never hide uncertainty behind a score.",
+    "Never invoke an unsatisfied downstream skill."
+  ],
+  "nextSkill": [
+    {
+      "skill": "make-association",
+      "condition": "The current output satisfies the registered transition contract.",
+      "reason": "Continue reasoning with MakeAssociation."
+    },
+    {
+      "skill": "deep-processing",
+      "condition": "The current output satisfies the registered transition contract.",
+      "reason": "Continue reasoning with DeepProcessing."
+    }
+  ],
+  "examples": [
+    {
+      "name": "Valid case",
+      "input": {
+        "validatedProblem": "Validated input",
+        "targetStructure": "Relevant context"
+      },
+      "expectedOutput": {
+        "status": "sufficient"
+      }
+    },
+    {
+      "name": "Incomplete case",
+      "input": {
+        "validatedProblem": "Ambiguous input"
+      },
+      "expectedOutput": {
+        "status": "incomplete",
+        "questionRequired": true
+      }
+    }
+  ],
+  "references": [
+    {
+      "title": "ThinkingOS Skill Specification",
+      "citation": "../../docs/skill-specification.md"
+    },
+    {
+      "title": "ThinkingOS Reasoning Engine",
+      "citation": "../../core/engine.md"
+    }
+  ],
+  "tests": [
+    {
+      "name": "analogy-T01",
+      "input": {
+        "validatedProblem": "valid input"
+      },
+      "expected": {
+        "check": "successful evaluation"
+      }
+    },
+    {
+      "name": "analogy-T02",
+      "input": {
+        "validatedProblem": "missing required input"
+      },
+      "expected": {
+        "check": "clarification"
+      }
+    },
+    {
+      "name": "analogy-T03",
+      "input": {
+        "validatedProblem": "ambiguous input"
+      },
+      "expected": {
+        "check": "ambiguity detected"
+      }
+    },
+    {
+      "name": "analogy-T04",
+      "input": {
+        "validatedProblem": "contradictory input"
+      },
+      "expected": {
+        "check": "contradiction recorded"
+      }
+    },
+    {
+      "name": "analogy-T05",
+      "input": {
+        "validatedProblem": "unsupported assumption"
+      },
+      "expected": {
+        "check": "assumption disclosed"
+      }
+    },
+    {
+      "name": "analogy-T06",
+      "input": {
+        "validatedProblem": "dependency missing"
+      },
+      "expected": {
+        "check": "prerequisite recommended"
+      }
+    },
+    {
+      "name": "analogy-T07",
+      "input": {
+        "validatedProblem": "alternative explanation"
+      },
+      "expected": {
+        "check": "alternative tested"
+      }
+    },
+    {
+      "name": "analogy-T08",
+      "input": {
+        "validatedProblem": "boundary condition"
+      },
+      "expected": {
+        "check": "boundary handled"
+      }
+    },
+    {
+      "name": "analogy-T09",
+      "input": {
+        "validatedProblem": "low evidence"
+      },
+      "expected": {
+        "check": "confidence reduced"
+      }
+    },
+    {
+      "name": "analogy-T10",
+      "input": {
+        "validatedProblem": "complete input"
+      },
+      "expected": {
+        "check": "output schema conformance"
+      }
+    }
+  ],
+  "extensions": {
+    "goldenSkillCompatible": true,
+    "documentation": {
+      "workflow": "workflow.md",
+      "validation": "validation.md",
+      "evaluation": "evaluation.md",
+      "rubric": "rubric.md",
+      "examples": "examples.md",
+      "tests": "tests.md",
+      "references": "references.md"
+    }
+  }
+}

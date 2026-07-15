@@ -66,7 +66,7 @@ skills:
     displayName: Analogy
     category: reasoning
     version: 0.1.0
-    status: planned
+    status: draft
     dependencies:
       - right-problem
     produces:
@@ -99,7 +99,7 @@ skills:
     displayName: Deep Processing
     category: learning
     version: 0.1.0
-    status: planned
+    status: draft
     dependencies:
       - right-problem
       - break-it-down
@@ -116,7 +116,7 @@ skills:
     displayName: Make Association
     category: synthesis
     version: 0.1.0
-    status: planned
+    status: draft
     dependencies:
       - analogy
       - deep-processing
@@ -133,7 +133,7 @@ skills:
     displayName: Learning Triangle
     category: learning
     version: 0.1.0
-    status: planned
+    status: draft
     dependencies:
       - deep-processing
     produces:
@@ -149,7 +149,7 @@ skills:
     displayName: Mind Map
     category: synthesis
     version: 0.1.0
-    status: planned
+    status: draft
     dependencies:
       - break-it-down
       - make-association

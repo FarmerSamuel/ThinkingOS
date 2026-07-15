@@ -1,0 +1,321 @@
+{
+  "name": "make-association",
+  "version": "0.1.0",
+  "description": "Create and evaluate meaningful connections between elaborated concepts and prior knowledge.",
+  "purpose": {
+    "problem": "Create and evaluate meaningful connections between elaborated concepts and prior knowledge.",
+    "outcome": "Produce validated Associations, AssociationStrengths, NovelConnections.",
+    "inScope": [
+      "Concept",
+      "Association",
+      "PriorKnowledge",
+      "Relationship",
+      "NovelConnection"
+    ],
+    "outOfScope": [
+      "Provider-specific execution",
+      "Unvalidated solution generation"
+    ]
+  },
+  "thinkingHabit": "Generate connections, then test their relevance and strength.",
+  "thinkingElements": [
+    "Concept",
+    "Association",
+    "PriorKnowledge",
+    "Relationship",
+    "NovelConnection"
+  ],
+  "requiredInputs": [
+    {
+      "name": "elaboratedConcepts",
+      "description": "The elaboratedconcepts required by Make Association.",
+      "required": true,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    },
+    {
+      "name": "structuralMapping",
+      "description": "The structuralmapping required by Make Association.",
+      "required": true,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    },
+    {
+      "name": "priorKnowledge",
+      "description": "The priorknowledge required by Make Association.",
+      "required": false,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    }
+  ],
+  "validation": [
+    {
+      "id": "MAKEASSOCIATION-V01",
+      "description": "Required inputs must be present, relevant, and mutually consistent.",
+      "condition": "required inputs pass the shared validation framework",
+      "onFailure": "Return needs clarification with one prioritized question."
+    },
+    {
+      "id": "MAKEASSOCIATION-V02",
+      "description": "Material ambiguity and missing information must be surfaced.",
+      "condition": "no blocking unknown is hidden",
+      "onFailure": "Record the gap and stop dependent logic."
+    },
+    {
+      "id": "MAKEASSOCIATION-V03",
+      "description": "Inputs must satisfy registered dependency semantics.",
+      "condition": "dependency outputs or validated equivalents are available",
+      "onFailure": "Recommend the missing prerequisite."
+    }
+  ],
+  "logic": [
+    {
+      "id": "MAKEASSOCIATION-L01",
+      "description": "Identify and normalize the skill's thinking elements: Concept, Association, PriorKnowledge, Relationship, NovelConnection.",
+      "condition": "each required element has evidence or explicit unknown status",
+      "onFailure": "Request or record the missing element."
+    },
+    {
+      "id": "MAKEASSOCIATION-L02",
+      "description": "Apply the Make Association relationship rules without introducing platform assumptions.",
+      "condition": "relationships are explicit and testable",
+      "onFailure": "Record the unsupported relationship."
+    },
+    {
+      "id": "MAKEASSOCIATION-L03",
+      "description": "Test contradictions, alternatives, and failure conditions.",
+      "condition": "material alternatives are considered",
+      "onFailure": "Reduce confidence and disclose the limitation."
+    },
+    {
+      "id": "MAKEASSOCIATION-L04",
+      "description": "Generate a schema-compatible evaluation and next-step recommendation.",
+      "condition": "scores, reasoning, and transition are consistent",
+      "onFailure": "Return incomplete rather than guessing."
+    }
+  ],
+  "evaluation": {
+    "criteria": [
+      {
+        "name": "Relevance Score",
+        "description": "Quality of relevance in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "Strength Score",
+        "description": "Quality of strength in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "Novelty Score",
+        "description": "Quality of novelty in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "Evidence Score",
+        "description": "Quality of evidence in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "Usefulness Score",
+        "description": "Quality of usefulness in the current reasoning.",
+        "weight": 0.2
+      }
+    ],
+    "scoringScale": {
+      "minimum": 0,
+      "maximum": 4,
+      "labels": {
+        "0": "unusable",
+        "1": "weak",
+        "2": "partial",
+        "3": "sufficient",
+        "4": "robust"
+      }
+    }
+  },
+  "conversationRules": [
+    "Ask one material question at a time.",
+    "Separate facts, assumptions, and interpretations.",
+    "Explain why a clarification affects the evaluation.",
+    "Stop when inputs are sufficient."
+  ],
+  "output": {
+    "schema": "../../schemas/output.schema.json",
+    "extensions": {
+      "scoreReporting": {
+        "overall": "evaluation.score",
+        "dimensions": "reasoning"
+      }
+    }
+  },
+  "neverRules": [
+    "Never fabricate missing information.",
+    "Never bypass a blocking validation failure.",
+    "Never hide uncertainty behind a score.",
+    "Never invoke an unsatisfied downstream skill."
+  ],
+  "nextSkill": [
+    {
+      "skill": "mind-map",
+      "condition": "The current output satisfies the registered transition contract.",
+      "reason": "Continue reasoning with MindMap."
+    },
+    {
+      "skill": "emergence",
+      "condition": "The current output satisfies the registered transition contract.",
+      "reason": "Continue reasoning with Emergence."
+    }
+  ],
+  "examples": [
+    {
+      "name": "Valid case",
+      "input": {
+        "elaboratedConcepts": "Validated input",
+        "structuralMapping": "Relevant context"
+      },
+      "expectedOutput": {
+        "status": "sufficient"
+      }
+    },
+    {
+      "name": "Incomplete case",
+      "input": {
+        "elaboratedConcepts": "Ambiguous input"
+      },
+      "expectedOutput": {
+        "status": "incomplete",
+        "questionRequired": true
+      }
+    }
+  ],
+  "references": [
+    {
+      "title": "ThinkingOS Skill Specification",
+      "citation": "../../docs/skill-specification.md"
+    },
+    {
+      "title": "ThinkingOS Reasoning Engine",
+      "citation": "../../core/engine.md"
+    }
+  ],
+  "tests": [
+    {
+      "name": "make-association-T01",
+      "input": {
+        "elaboratedConcepts": "valid input"
+      },
+      "expected": {
+        "check": "successful evaluation"
+      }
+    },
+    {
+      "name": "make-association-T02",
+      "input": {
+        "elaboratedConcepts": "missing required input"
+      },
+      "expected": {
+        "check": "clarification"
+      }
+    },
+    {
+      "name": "make-association-T03",
+      "input": {
+        "elaboratedConcepts": "ambiguous input"
+      },
+      "expected": {
+        "check": "ambiguity detected"
+      }
+    },
+    {
+      "name": "make-association-T04",
+      "input": {
+        "elaboratedConcepts": "contradictory input"
+      },
+      "expected": {
+        "check": "contradiction recorded"
+      }
+    },
+    {
+      "name": "make-association-T05",
+      "input": {
+        "elaboratedConcepts": "unsupported assumption"
+      },
+      "expected": {
+        "check": "assumption disclosed"
+      }
+    },
+    {
+      "name": "make-association-T06",
+      "input": {
+        "elaboratedConcepts": "dependency missing"
+      },
+      "expected": {
+        "check": "prerequisite recommended"
+      }
+    },
+    {
+      "name": "make-association-T07",
+      "input": {
+        "elaboratedConcepts": "alternative explanation"
+      },
+      "expected": {
+        "check": "alternative tested"
+      }
+    },
+    {
+      "name": "make-association-T08",
+      "input": {
+        "elaboratedConcepts": "boundary condition"
+      },
+      "expected": {
+        "check": "boundary handled"
+      }
+    },
+    {
+      "name": "make-association-T09",
+      "input": {
+        "elaboratedConcepts": "low evidence"
+      },
+      "expected": {
+        "check": "confidence reduced"
+      }
+    },
+    {
+      "name": "make-association-T10",
+      "input": {
+        "elaboratedConcepts": "complete input"
+      },
+      "expected": {
+        "check": "output schema conformance"
+      }
+    }
+  ],
+  "extensions": {
+    "goldenSkillCompatible": true,
+    "documentation": {
+      "workflow": "workflow.md",
+      "validation": "validation.md",
+      "evaluation": "evaluation.md",
+      "rubric": "rubric.md",
+      "examples": "examples.md",
+      "tests": "tests.md",
+      "references": "references.md"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+id: make-association
+name: Make Association
+version: 0.1.0
+status: draft
+category: synthesis
+author: FarmerSamuel
+requires:
+  - ElaboratedConcepts
+  - StructuralMapping
+  - PriorKnowledge
+produces:
+  - Associations
+  - AssociationStrengths
+  - NovelConnections
+dependencies:
+  - analogy
+  - deep-processing
+nextSkill:
+  - id: mind-map
+    condition: The current output satisfies the registered transition and dependency contracts.
+  - id: emergence
+    condition: The current output satisfies the registered transition and dependency contracts.

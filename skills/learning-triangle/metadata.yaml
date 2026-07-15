@@ -1,0 +1,21 @@
+id: learning-triangle
+name: Learning Triangle
+version: 0.1.0
+status: draft
+category: learning
+author: FarmerSamuel
+requires:
+  - ElaboratedConcepts
+  - UnderstandingGaps
+  - LearningGoal
+produces:
+  - LearningPlan
+  - PracticeLoop
+  - FeedbackCriteria
+dependencies:
+  - deep-processing
+nextSkill:
+  - id: mind-map
+    condition: The current output satisfies the registered transition and dependency contracts.
+  - id: deep-processing
+    condition: The current output satisfies the registered transition and dependency contracts.
