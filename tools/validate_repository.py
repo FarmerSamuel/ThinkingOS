@@ -8,6 +8,16 @@ import re
 import sys
 from pathlib import Path
 
+try:
+    import jsonschema
+except ImportError:  # Dependency-free local validation remains supported.
+    jsonschema = None
+
+try:
+    import yaml
+except ImportError:  # CI installs requirements-dev.txt for complete YAML validation.
+    yaml = None
+
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_SKILL_FILES = {
     "README.md", "metadata.yaml", "skill.json", "workflow.md", "validation.md",
@@ -80,6 +90,10 @@ def validate_skill(directory: Path, registry: dict[str, dict], schema: dict, err
         errors.append(f"{skill_id}: unexpected skill.json fields {sorted(extra)}")
     if data.get("name") != skill_id:
         errors.append(f"{skill_id}: skill.json name mismatch")
+    if jsonschema is not None:
+        for violation in jsonschema.Draft202012Validator(schema).iter_errors(data):
+            location = ".".join(str(part) for part in violation.absolute_path) or "<root>"
+            errors.append(f"{skill_id}: schema violation at {location}: {violation.message}")
     if not re.fullmatch(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?", data.get("version", "")):
         errors.append(f"{skill_id}: invalid semantic version")
     for field in ("thinkingElements", "requiredInputs", "validation", "logic", "conversationRules", "neverRules", "examples", "tests"):
@@ -119,26 +133,46 @@ def validate_docs(errors: list[str]) -> None:
                 errors.append(f"{document.relative_to(ROOT)}: broken relative link {target}")
 
 
+def validate_yaml(errors: list[str]) -> None:
+    if yaml is None:
+        return
+    candidates = [ROOT / "skills" / "registry.yaml"]
+    candidates.extend((ROOT / "skills").glob("*/metadata.yaml"))
+    candidates.extend((ROOT / ".github").rglob("*.yml"))
+    candidates.extend((ROOT / ".github").rglob("*.yaml"))
+    for path in sorted(set(candidates)):
+        try:
+            yaml.safe_load(path.read_text(encoding="utf-8"))
+        except yaml.YAMLError as exc:
+            errors.append(f"{path.relative_to(ROOT)}: invalid YAML: {exc}")
+
+
 def main() -> int:
     errors: list[str] = []
     registry = parse_registry()
     validate_graph(registry, errors)
     validate_docs(errors)
+    validate_yaml(errors)
     schema = json.loads((ROOT / "schemas" / "skill.schema.json").read_text(encoding="utf-8"))
     for directory in sorted((ROOT / "skills").iterdir()):
         if directory.is_dir():
             validate_skill(directory, registry, schema, errors)
     for schema_file in sorted((ROOT / "schemas").glob("*.json")):
         try:
-            json.loads(schema_file.read_text(encoding="utf-8"))
+            schema_data = json.loads(schema_file.read_text(encoding="utf-8"))
+            if jsonschema is not None:
+                jsonschema.Draft202012Validator.check_schema(schema_data)
         except json.JSONDecodeError as exc:
             errors.append(f"{schema_file.relative_to(ROOT)}: invalid JSON: {exc}")
+        except Exception as exc:  # jsonschema raises schema-specific subclasses.
+            errors.append(f"{schema_file.relative_to(ROOT)}: invalid JSON Schema: {exc}")
     if errors:
         print("Repository validation failed:", file=sys.stderr)
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
-    print(f"Repository validation passed: {len(registry)} registered skills, dependency graph acyclic.")
+    mode = "full" if jsonschema is not None and yaml is not None else "dependency-free"
+    print(f"Repository validation passed ({mode}): {len(registry)} registered skills, dependency graph acyclic.")
     return 0
 
 

@@ -1,0 +1,74 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing semantic version tag to release
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Resolve tag
+        id: version
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            tag="${{ inputs.tag }}"
+          else
+            tag="${GITHUB_REF_NAME}"
+          fi
+          if [[ ! "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid semantic version tag: $tag" >&2
+            exit 1
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Validate release version
+        shell: bash
+        run: |
+          test -f VERSION
+          test "v$(tr -d '\r\n' < VERSION)" = "${{ steps.version.outputs.tag }}"
+          grep -F "## [$(cat VERSION)]" CHANGELOG.md
+          python tools/validate_repository.py
+
+      - name: Create source archives
+        shell: bash
+        run: |
+          version="$(cat VERSION)"
+          git archive --format=tar.gz --prefix="ThinkingOS-${version}/" -o "ThinkingOS-${version}.tar.gz" HEAD
+          git archive --format=zip --prefix="ThinkingOS-${version}/" -o "ThinkingOS-${version}.zip" HEAD
+          sha256sum "ThinkingOS-${version}.tar.gz" "ThinkingOS-${version}.zip" > SHA256SUMS
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          version="$(cat VERSION)"
+          gh release create "${{ steps.version.outputs.tag }}" \
+            "ThinkingOS-${version}.tar.gz" \
+            "ThinkingOS-${version}.zip" \
+            SHA256SUMS \
+            --verify-tag \
+            --title "ThinkingOS ${version}" \
+            --notes-file RELEASE_NOTES.md

@@ -1,0 +1,38 @@
+name: Feature request
+description: Propose a framework, skill, knowledge, adapter, tooling, or documentation improvement.
+title: "feat: "
+labels: [enhancement, triage]
+body:
+  - type: dropdown
+    id: layer
+    attributes:
+      label: Proposed layer
+      options: [Core, Engine, Specification, Skill, Knowledge, Adapter, Tooling, Documentation]
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Validated problem
+      description: Describe the outcome gap, evidence, and affected users before proposing a solution.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Explain scope, alternatives, and why this layer owns the change.
+    validations:
+      required: true
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility impact
+      description: Identify public identifiers, schemas, dependencies, or behaviors that may change.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched the Registry, roadmap, skills, and existing issues for overlap.
+          required: true
