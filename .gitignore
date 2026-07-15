@@ -28,6 +28,7 @@ temp/
 node_modules/
 dist/
 build/
+site/
 coverage/
 .cache/
 
