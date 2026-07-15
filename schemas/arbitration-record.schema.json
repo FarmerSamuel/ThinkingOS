@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thinkingos.dev/schemas/arbitration-record/0.1.0-draft.1/schema.json",
+  "title": "ThinkingOS Arbitration Record",
+  "description": "Draft audit record for merging immutable candidate outputs into one committed state lineage.",
+  "x-thinkingos-lifecycle": "draft",
+  "x-thinkingos-stability": "experimental",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "lifecycle",
+    "recordId",
+    "sessionId",
+    "collaborationLevel",
+    "previousRecordDigest",
+    "baseState",
+    "candidateDecisions",
+    "divergenceClassification",
+    "basis",
+    "arbiter",
+    "humanApproved",
+    "resultState",
+    "createdAt",
+    "recordDigest"
+  ],
+  "properties": {
+    "schemaVersion": {"const": "0.1.0-draft.1"},
+    "lifecycle": {"const": "draft"},
+    "recordId": {"$ref": "#/$defs/id"},
+    "sessionId": {"$ref": "#/$defs/id"},
+    "collaborationLevel": {"enum": ["L1", "L2", "L3"]},
+    "previousRecordDigest": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/digest"}
+      ]
+    },
+    "baseState": {"$ref": "#/$defs/stateReference"},
+    "candidateDecisions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/candidateDecision"}
+    },
+    "divergenceClassification": {
+      "enum": [
+        "none",
+        "input-mismatch",
+        "state-mismatch",
+        "instruction-mismatch",
+        "version-mismatch",
+        "adapter-nonconformance",
+        "schema-nonconformance",
+        "stochastic-variance",
+        "model-nonconformance",
+        "contract-ambiguity",
+        "unresolved"
+      ]
+    },
+    "basis": {
+      "type": "object",
+      "required": ["evidenceReferences", "neverRuleViolations", "rubricFindings"],
+      "properties": {
+        "evidenceReferences": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "neverRuleViolations": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "rubricFindings": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+      },
+      "additionalProperties": false
+    },
+    "arbiter": {
+      "type": "object",
+      "required": ["type", "id"],
+      "properties": {
+        "type": {"enum": ["human", "policy", "delegated-agent"]},
+        "id": {"$ref": "#/$defs/id"}
+      },
+      "additionalProperties": false
+    },
+    "humanApproved": {"type": "boolean"},
+    "resultState": {"$ref": "#/$defs/stateReference"},
+    "createdAt": {"type": "string", "format": "date-time"},
+    "recordDigest": {"$ref": "#/$defs/digest"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"collaborationLevel": {"const": "L3"}}, "required": ["collaborationLevel"]},
+      "then": {"properties": {"humanApproved": {"const": true}}}
+    }
+  ],
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "jsonPointer": {"type": "string", "pattern": "^(?:/(?:[^~/]|~0|~1)*)+$"},
+    "stateReference": {
+      "type": "object",
+      "required": ["version", "digest"],
+      "properties": {
+        "version": {"type": "integer", "minimum": 0},
+        "digest": {"$ref": "#/$defs/digest"}
+      },
+      "additionalProperties": false
+    },
+    "candidateDecision": {
+      "type": "object",
+      "required": ["runId", "disposition", "reason"],
+      "properties": {
+        "runId": {"$ref": "#/$defs/id"},
+        "disposition": {"enum": ["accepted", "rejected", "partial"]},
+        "reason": {"type": "string", "minLength": 1},
+        "acceptedPaths": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/jsonPointer"},
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"disposition": {"const": "partial"}}, "required": ["disposition"]},
+          "then": {"required": ["acceptedPaths"]},
+          "else": {"not": {"required": ["acceptedPaths"]}}
+        }
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

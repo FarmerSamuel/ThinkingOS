@@ -1,0 +1,35 @@
+{
+  "fixtureMetadata": {"synthetic": true, "containsRealUserData": false, "purpose": "Reject an envelope whose component state digest differs from its base state digest."},
+  "expectedFailure": "state-digest-mismatch",
+  "documentType": "collaboration-envelope",
+  "document": {
+    "schemaVersion": "0.1.0-draft.1",
+    "lifecycle": "draft",
+    "session": {"sessionId": "synthetic-invalid-session"},
+    "runId": "synthetic-invalid-run",
+    "collaborationLevel": "L1",
+    "actor": {"actorId": "synthetic-actor", "role": "analyst", "provider": "openai", "model": "synthetic-model"},
+    "framework": {"releaseTag": "v1.0.0", "sourceCommit": "1111111111111111111111111111111111111111"},
+    "skill": {"id": "right-problem", "version": "1.0.1"},
+    "baseState": {"version": 0, "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+    "digests": {
+      "profile": {"algorithm": "sha256", "canonicalization": "RFC8785", "encoding": "utf-8"},
+      "instructionsDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "inputsDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "stateDigest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "caseDigest": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "requestDigest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    "output": {
+      "summary": "Synthetic invalid output.",
+      "evaluation": {"score": 1, "strengths": [], "weaknesses": ["Synthetic mismatch."], "missingInformation": [], "logicalIssues": [], "recommendation": "Reject.", "confidence": "low"},
+      "reasoning": ["Synthetic reasoning."],
+      "assumptions": [],
+      "missingInformation": [],
+      "questions": [],
+      "nextStep": "Reject the stale envelope.",
+      "confidence": "low"
+    },
+    "createdAt": "2026-07-15T11:00:00Z"
+  }
+}

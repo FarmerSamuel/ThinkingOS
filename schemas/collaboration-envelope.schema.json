@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thinkingos.dev/schemas/collaboration-envelope/0.1.0-draft.1/schema.json",
+  "title": "ThinkingOS Collaboration Envelope",
+  "description": "Draft provider-neutral envelope for one immutable candidate execution.",
+  "x-thinkingos-lifecycle": "draft",
+  "x-thinkingos-stability": "experimental",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "lifecycle",
+    "session",
+    "runId",
+    "collaborationLevel",
+    "actor",
+    "framework",
+    "skill",
+    "baseState",
+    "digests",
+    "output",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": {"const": "0.1.0-draft.1"},
+    "lifecycle": {"const": "draft"},
+    "session": {"$ref": "#/$defs/session"},
+    "runId": {"$ref": "#/$defs/id"},
+    "collaborationLevel": {"enum": ["L1", "L2", "L3"]},
+    "actor": {
+      "type": "object",
+      "required": ["actorId", "role", "provider"],
+      "properties": {
+        "actorId": {"$ref": "#/$defs/id"},
+        "role": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"},
+        "provider": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"},
+        "model": {"type": ["string", "null"], "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "framework": {
+      "type": "object",
+      "required": ["releaseTag", "sourceCommit"],
+      "properties": {
+        "releaseTag": {"type": "string", "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"},
+        "sourceCommit": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      },
+      "additionalProperties": false
+    },
+    "skill": {
+      "type": "object",
+      "required": ["id", "version"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"},
+        "version": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?$"}
+      },
+      "additionalProperties": false
+    },
+    "baseState": {"$ref": "#/$defs/stateReference"},
+    "digests": {
+      "type": "object",
+      "required": ["profile", "instructionsDigest", "inputsDigest", "stateDigest", "caseDigest", "requestDigest"],
+      "properties": {
+        "profile": {"$ref": "#/$defs/digestProfile"},
+        "instructionsDigest": {"$ref": "#/$defs/digest"},
+        "inputsDigest": {"$ref": "#/$defs/digest"},
+        "stateDigest": {"$ref": "#/$defs/digest"},
+        "caseDigest": {"$ref": "#/$defs/digest"},
+        "requestDigest": {"$ref": "#/$defs/digest"}
+      },
+      "additionalProperties": false
+    },
+    "output": {"$ref": "https://thinkingos.dev/schemas/output.schema.json"},
+    "createdAt": {"type": "string", "format": "date-time"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"session": {"required": ["parentSessionId"]}}},
+      "then": {"properties": {"session": {"required": ["forkedFromStateVersion"]}}}
+    },
+    {
+      "if": {"properties": {"session": {"required": ["forkedFromStateVersion"]}}},
+      "then": {"properties": {"session": {"required": ["parentSessionId"]}}}
+    }
+  ],
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "digestProfile": {
+      "type": "object",
+      "required": ["algorithm", "canonicalization", "encoding"],
+      "properties": {
+        "algorithm": {"const": "sha256"},
+        "canonicalization": {"const": "RFC8785"},
+        "encoding": {"const": "utf-8"}
+      },
+      "additionalProperties": false
+    },
+    "session": {
+      "type": "object",
+      "required": ["sessionId"],
+      "properties": {
+        "sessionId": {"$ref": "#/$defs/id"},
+        "parentSessionId": {"$ref": "#/$defs/id"},
+        "forkedFromStateVersion": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "stateReference": {
+      "type": "object",
+      "required": ["version", "digest"],
+      "properties": {
+        "version": {"type": "integer", "minimum": 0},
+        "digest": {"$ref": "#/$defs/digest"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

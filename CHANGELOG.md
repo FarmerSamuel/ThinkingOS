@@ -8,6 +8,9 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- Experimental multi-AI collaboration protocol with L1, L2, and L3 controls.
+- Draft collaboration-envelope and arbitration-record schemas with versioned identities.
+- Fully synthetic positive and negative collaboration fixtures with cross-field contract tests.
 - Claude Agent Skill distribution in `.claude/skills/` generated from the
   canonical skill packages by `tools/export_claude_skills.py`, with a
   `--check` mode and CI-enforced sync tests.
@@ -22,6 +25,11 @@ All notable changes to this project are documented here. The format follows
 
 - Refined Right Problem 1.0.1 with material-ambiguity, observable-success,
   obstacle/constraint, and alternative-explanation diagnostics.
+
+### Fixed
+
+- Normalized generated Claude Skill paths so drift checks behave consistently
+  on Windows and POSIX systems.
 
 ## [1.0.0] - 2026-07-15
 
