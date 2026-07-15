@@ -1,0 +1,75 @@
+site_name: ThinkingOS
+site_description: An AI-agnostic framework for reusable, validated thinking skills.
+site_url: https://farmersamuel.github.io/ThinkingOS/
+repo_url: https://github.com/FarmerSamuel/ThinkingOS
+repo_name: FarmerSamuel/ThinkingOS
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - content.action.edit
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+nav:
+  - Home: index.md
+  - Concepts:
+      - Architecture: architecture.md
+      - Core Design Principles: design-principles.md
+      - Reasoning Engine: engine.md
+      - Thinking Language: thinking-language.md
+      - Thinking Graph: thinking-graph.md
+      - Evaluation Model: evaluation-model.md
+  - Specifications:
+      - Skill Specification: skill-specification.md
+      - Skill Lifecycle: skill-lifecycle.md
+      - Skill Dependencies: skill-dependencies.md
+      - Naming Conventions: naming-conventions.md
+  - Guides:
+      - Developer Guide: developer-guide.md
+      - Skill Author Guide: skill-author-guide.md
+      - Contribution Guide: contribution-guide.md
+  - Project:
+      - Roadmap: roadmap.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+plugins:
+  - search
+
+strict: true

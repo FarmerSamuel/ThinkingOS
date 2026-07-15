@@ -104,10 +104,26 @@ def validate_skill(directory: Path, registry: dict[str, dict], schema: dict, err
         errors.append(f"{skill_id}: metadata/registry status mismatch")
 
 
+def validate_docs(errors: list[str]) -> None:
+    docs = ROOT / "docs"
+    config = (ROOT / "mkdocs.yml").read_text(encoding="utf-8") if (ROOT / "mkdocs.yml").exists() else ""
+    for nav_path in re.findall(r"(?m)^\s+- [^:\n]+: ([a-z0-9][a-z0-9./-]*\.md)$", config):
+        if not (docs / nav_path).exists():
+            errors.append(f"mkdocs nav: missing docs/{nav_path}")
+    link_pattern = re.compile(r"\[[^\]]+\]\((?!https?://|mailto:|#)([^)#]+)(?:#[^)]+)?\)")
+    for document in docs.rglob("*.md"):
+        text = document.read_text(encoding="utf-8")
+        for target in link_pattern.findall(text):
+            resolved = (document.parent / target).resolve()
+            if not resolved.exists():
+                errors.append(f"{document.relative_to(ROOT)}: broken relative link {target}")
+
+
 def main() -> int:
     errors: list[str] = []
     registry = parse_registry()
     validate_graph(registry, errors)
+    validate_docs(errors)
     schema = json.loads((ROOT / "schemas" / "skill.schema.json").read_text(encoding="utf-8"))
     for directory in sorted((ROOT / "skills").iterdir()):
         if directory.is_dir():
