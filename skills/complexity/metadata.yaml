@@ -1,0 +1,22 @@
+id: complexity
+name: Complexity
+version: 0.1.0
+status: draft
+category: systems-thinking
+author: FarmerSamuel
+requires:
+  - ProblemComponents
+  - SystemBoundary
+  - DependencyStructure
+produces:
+  - ComplexityProfile
+  - InteractionMap
+  - UncertaintyDrivers
+dependencies:
+  - break-it-down
+  - boundary
+nextSkill:
+  - id: emergence
+    condition: The current output satisfies the registered transition and dependency contracts.
+  - id: heuristic
+    condition: The current output satisfies the registered transition and dependency contracts.

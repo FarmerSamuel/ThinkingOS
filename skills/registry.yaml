@@ -184,7 +184,7 @@ skills:
     displayName: Complexity
     category: systems-thinking
     version: 0.1.0
-    status: planned
+    status: draft
     dependencies:
       - break-it-down
       - boundary
@@ -201,7 +201,7 @@ skills:
     displayName: Emergence
     category: systems-thinking
     version: 0.1.0
-    status: planned
+    status: draft
     dependencies:
       - complexity
       - make-association

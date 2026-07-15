@@ -1,0 +1,22 @@
+id: emergence
+name: Emergence
+version: 0.1.0
+status: draft
+category: systems-thinking
+author: FarmerSamuel
+requires:
+  - ComplexityProfile
+  - InteractionMap
+  - Associations
+produces:
+  - EmergentPatterns
+  - SystemBehaviors
+  - EmergenceConditions
+dependencies:
+  - complexity
+  - make-association
+nextSkill:
+  - id: boundary
+    condition: The current output satisfies the registered transition and dependency contracts.
+  - id: complexity
+    condition: The current output satisfies the registered transition and dependency contracts.
