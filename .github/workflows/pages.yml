@@ -22,6 +22,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      pages-enabled: ${{ steps.pages.outcome == 'success' }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
@@ -40,7 +42,9 @@ jobs:
         run: mkdocs build --strict
 
       - name: Configure Pages
+        id: pages
         uses: actions/configure-pages@v5
+        continue-on-error: true
         with:
           enablement: true
 
@@ -50,6 +54,7 @@ jobs:
           path: site
 
   deploy:
+    if: needs.build.outputs.pages-enabled == 'true'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
