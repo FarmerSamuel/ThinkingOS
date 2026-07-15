@@ -1,0 +1,215 @@
+schemaVersion: "1.0"
+skills:
+  - id: right-problem
+    displayName: Right Problem
+    category: problem-framing
+    version: 0.1.0
+    status: planned
+    dependencies: []
+    produces:
+      - ValidatedProblem
+      - ClarifiedGoal
+      - ProblemAssumptions
+    consumes:
+      - ProblemStatement
+      - Goal
+      - Context
+
+  - id: break-it-down
+    displayName: Break It Down
+    category: decomposition
+    version: 0.1.0
+    status: planned
+    dependencies:
+      - right-problem
+    produces:
+      - ProblemComponents
+      - MinimumTractableUnits
+      - DependencyStructure
+    consumes:
+      - ValidatedProblem
+      - ClarifiedGoal
+
+  - id: constraints
+    displayName: Constraints
+    category: problem-framing
+    version: 0.1.0
+    status: planned
+    dependencies:
+      - right-problem
+    produces:
+      - ConstraintSet
+      - ConstraintClassification
+      - FeasibleSpace
+    consumes:
+      - ValidatedProblem
+      - Context
+
+  - id: gap-analysis
+    displayName: Gap Analysis
+    category: analysis
+    version: 0.1.0
+    status: planned
+    dependencies:
+      - right-problem
+      - constraints
+    produces:
+      - GapSet
+      - PrioritizedGaps
+      - TransitionNeeds
+    consumes:
+      - InitialState
+      - TargetState
+      - ConstraintSet
+
+  - id: analogy
+    displayName: Analogy
+    category: reasoning
+    version: 0.1.0
+    status: planned
+    dependencies:
+      - right-problem
+    produces:
+      - SourceAnalogue
+      - StructuralMapping
+      - AnalogyLimitations
+    consumes:
+      - ValidatedProblem
+      - TargetStructure
+      - CandidateAnalogues
+
+  - id: heuristic
+    displayName: Heuristic
+    category: decision-making
+    version: 0.1.0
+    status: planned
+    dependencies:
+      - right-problem
+      - constraints
+    produces:
+      - DecisionHeuristic
+      - ApplicabilityConditions
+      - FailureConditions
+    consumes:
+      - ValidatedProblem
+      - ConstraintSet
+      - DecisionContext
+
+  - id: deep-processing
+    displayName: Deep Processing
+    category: learning
+    version: 0.1.0
+    status: planned
+    dependencies:
+      - right-problem
+      - break-it-down
+    produces:
+      - ElaboratedConcepts
+      - ExplanatoryLinks
+      - UnderstandingGaps
+    consumes:
+      - ValidatedProblem
+      - ProblemComponents
+      - SourceMaterial
+
+  - id: make-association
+    displayName: Make Association
+    category: synthesis
+    version: 0.1.0
+    status: planned
+    dependencies:
+      - analogy
+      - deep-processing
+    produces:
+      - Associations
+      - AssociationStrengths
+      - NovelConnections
+    consumes:
+      - ElaboratedConcepts
+      - StructuralMapping
+      - PriorKnowledge
+
+  - id: learning-triangle
+    displayName: Learning Triangle
+    category: learning
+    version: 0.1.0
+    status: planned
+    dependencies:
+      - deep-processing
+    produces:
+      - LearningPlan
+      - PracticeLoop
+      - FeedbackCriteria
+    consumes:
+      - ElaboratedConcepts
+      - UnderstandingGaps
+      - LearningGoal
+
+  - id: mind-map
+    displayName: Mind Map
+    category: synthesis
+    version: 0.1.0
+    status: planned
+    dependencies:
+      - break-it-down
+      - make-association
+    produces:
+      - ConceptGraph
+      - ConceptHierarchy
+      - CrossLinks
+    consumes:
+      - ProblemComponents
+      - Associations
+      - CentralTopic
+
+  - id: boundary
+    displayName: Boundary
+    category: systems-thinking
+    version: 0.1.0
+    status: planned
+    dependencies:
+      - right-problem
+      - constraints
+    produces:
+      - SystemBoundary
+      - InScopeElements
+      - OutOfScopeElements
+      - BoundaryAssumptions
+    consumes:
+      - ValidatedProblem
+      - ConstraintSet
+      - Stakeholders
+
+  - id: complexity
+    displayName: Complexity
+    category: systems-thinking
+    version: 0.1.0
+    status: planned
+    dependencies:
+      - break-it-down
+      - boundary
+    produces:
+      - ComplexityProfile
+      - InteractionMap
+      - UncertaintyDrivers
+    consumes:
+      - ProblemComponents
+      - SystemBoundary
+      - DependencyStructure
+
+  - id: emergence
+    displayName: Emergence
+    category: systems-thinking
+    version: 0.1.0
+    status: planned
+    dependencies:
+      - complexity
+      - make-association
+    produces:
+      - EmergentPatterns
+      - SystemBehaviors
+      - EmergenceConditions
+    consumes:
+      - ComplexityProfile
+      - InteractionMap
+      - Associations
