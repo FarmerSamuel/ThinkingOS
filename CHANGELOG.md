@@ -8,6 +8,11 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- Claude Agent Skill distribution in `.claude/skills/` generated from the
+  canonical skill packages by `tools/export_claude_skills.py`, with a
+  `--check` mode and CI-enforced sync tests.
+- Bilingual Claude usage and iteration guide, plus a repository `CLAUDE.md`
+  playbook for validation commands and skill iteration.
 - Complete Traditional Chinese documentation with one-to-one page parity,
   localized navigation, search, and an English/繁體中文 language switcher.
 - Bilingual Right Problem usage guide, reusable problem-framing knowledge,

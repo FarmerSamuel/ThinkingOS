@@ -34,6 +34,7 @@ The Engine stops or loops when a blocking ambiguity, contradiction, or missing d
 - Integrate with the framework through the [SDK Guide](sdk-guide.md).
 - Follow the [Skill Author Guide](skill-author-guide.md) to create a conforming package.
 - Learn the Golden Skill through the [Right Problem Guide](right-problem-guide.md).
+- Run the skills inside Claude with the [Claude Guide](claude-guide.md).
 - See the [Thinking Graph](thinking-graph.md) for skill relationships.
 
 ## Project status
