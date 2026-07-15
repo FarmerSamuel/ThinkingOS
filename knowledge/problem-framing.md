@@ -57,4 +57,3 @@ Reframing is useful only when the alternative can be compared against the origin
 ## Domain-specific patterns
 
 Product and business contexts often benefit from scenario-style acceptance criteria, priority labels, and explicit out-of-scope statements. These are optional domain techniques, not universal ThinkingOS requirements. Priority distributions must be justified by the decision context rather than fixed percentages.
-

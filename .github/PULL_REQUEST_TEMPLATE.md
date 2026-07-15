@@ -21,6 +21,10 @@ List affected schemas, identifiers, inputs, logic semantics, outputs, dependenci
 - [ ] New or changed behavior has tests.
 - [ ] Registry, metadata, versions, references, and changelogs are aligned.
 - [ ] No provider-specific behavior leaked outside `adapters/`.
+- [ ] Collaboration fixtures are fully synthetic and contain no real user data.
+- [ ] Fixture digests were computed only from synthetic source values.
+- [ ] Draft schemas declare lifecycle, stability, versioned `$id`, and migration expectations.
+- [ ] Cross-field collaboration invariants have positive and negative tests.
 
 ## Evidence
 

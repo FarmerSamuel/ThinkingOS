@@ -43,8 +43,11 @@ nav:
       - Skill Lifecycle: skill-lifecycle.md
       - Skill Dependencies: skill-dependencies.md
       - Naming Conventions: naming-conventions.md
+      - Collaboration Protocol: collaboration-protocol.md
+      - Collaboration Levels: collaboration-levels.md
   - Guides:
       - Right Problem Guide: right-problem-guide.md
+      - Claude Guide: claude-guide.md
       - Developer Guide: developer-guide.md
       - SDK Guide: sdk-guide.md
       - Skill Author Guide: skill-author-guide.md
@@ -100,8 +103,11 @@ plugins:
             Skill Lifecycle: 技能生命週期
             Skill Dependencies: 技能相依關係
             Naming Conventions: 命名慣例
+            Collaboration Protocol: 多 AI 協作協定
+            Collaboration Levels: 協作等級
             Guides: 指南
             Right Problem Guide: 問對問題指南
+            Claude Guide: Claude 使用指南
             Developer Guide: 開發者指南
             SDK Guide: SDK 指南
             Skill Author Guide: 技能作者指南

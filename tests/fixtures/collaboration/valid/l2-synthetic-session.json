@@ -1,0 +1,221 @@
+{
+  "fixtureMetadata": {
+    "synthetic": true,
+    "containsRealUserData": false,
+    "purpose": "Validate one L2 session with parallel candidates and two chained arbitration transitions."
+  },
+  "digestSources": {
+    "framework": {
+      "releaseTag": "v1.0.0",
+      "sourceCommit": "1111111111111111111111111111111111111111"
+    },
+    "skill": {"id": "right-problem", "version": "1.0.1"},
+    "inputs": {
+      "evidence": "Synthetic observation: processing time increased while arrivals stayed stable.",
+      "goal": "Reduce synthetic queue delay below 2 minutes.",
+      "problemStatement": "A synthetic service queue exceeds 5 minutes."
+    },
+    "instructions": {
+      "run-analyst-001": "Apply #RightProblem as analyst. Return the universal output.",
+      "run-critic-001": "Apply #RightProblem as critic. Challenge unsupported causal claims.",
+      "run-evidence-001": "Apply #RightProblem as evidence reviewer. Test the cited synthetic evidence."
+    },
+    "states": {
+      "0": {
+        "currentSkill": "right-problem",
+        "currentGoal": "Reduce synthetic queue delay below 2 minutes.",
+        "collectedInputs": {},
+        "pendingQuestions": [],
+        "nextSkill": null
+      },
+      "1": {
+        "currentSkill": "right-problem",
+        "currentGoal": "Reduce synthetic queue delay below 2 minutes.",
+        "collectedInputs": {
+          "validatedObstacle": "Synthetic processing time increased while arrivals stayed stable.",
+          "alternativeExplanation": "Synthetic measurement drift remains possible."
+        },
+        "pendingQuestions": [],
+        "nextSkill": "gap-analysis"
+      },
+      "2": {
+        "currentSkill": "right-problem",
+        "currentGoal": "Reduce synthetic queue delay below 2 minutes.",
+        "collectedInputs": {
+          "validatedObstacle": "Synthetic processing time increased while arrivals stayed stable.",
+          "alternativeExplanation": "Synthetic measurement drift remains possible.",
+          "evidenceReview": "Synthetic evidence is internally consistent for this fixture."
+        },
+        "pendingQuestions": [],
+        "nextSkill": "gap-analysis"
+      }
+    }
+  },
+  "documents": {
+    "envelopes": [
+      {
+        "schemaVersion": "0.1.0-draft.1",
+        "lifecycle": "draft",
+        "session": {"sessionId": "synthetic-session-001"},
+        "runId": "run-analyst-001",
+        "collaborationLevel": "L2",
+        "actor": {"actorId": "synthetic-actor-a", "role": "analyst", "provider": "openai", "model": "synthetic-model"},
+        "framework": {"releaseTag": "v1.0.0", "sourceCommit": "1111111111111111111111111111111111111111"},
+        "skill": {"id": "right-problem", "version": "1.0.1"},
+        "baseState": {"version": 0, "digest": "sha256:47307541e515af7299870bdb0d6b0815935aa03b6eb2b1910db495bab80e9c21"},
+        "digests": {
+          "profile": {"algorithm": "sha256", "canonicalization": "RFC8785", "encoding": "utf-8"},
+          "instructionsDigest": "sha256:8335cbf77caf86ea84c807ae1f971667e43068e00dc4b3c1f5ceb159bc95bfee",
+          "inputsDigest": "sha256:ee4f92c572356412d28227ecdb6cf3c399628adfda77a4f0d578da93461bb341",
+          "stateDigest": "sha256:47307541e515af7299870bdb0d6b0815935aa03b6eb2b1910db495bab80e9c21",
+          "caseDigest": "sha256:92296897466d1038a320091c75ff340a1570e2eb96f3b48762064836a54f915c",
+          "requestDigest": "sha256:22abe9015e4b689c435a82b3b93e7ec50a44895b3172371cb4d554fbf144b007"
+        },
+        "output": {
+          "summary": "The synthetic queue problem is sufficiently framed for the next skill.",
+          "evaluation": {
+            "score": 3,
+            "strengths": ["The synthetic goal and observation are measurable."],
+            "weaknesses": ["Synthetic measurement drift remains possible."],
+            "missingInformation": [],
+            "logicalIssues": [],
+            "recommendation": "Preserve the alternative explanation and proceed to gap analysis.",
+            "confidence": "medium"
+          },
+          "reasoning": ["Stable synthetic arrivals make processing time a plausible obstacle."],
+          "assumptions": ["Synthetic measurements use one consistent definition."],
+          "missingInformation": [],
+          "questions": [],
+          "nextStep": "Run #GapAnalysis on the validated synthetic frame.",
+          "confidence": "medium"
+        },
+        "createdAt": "2026-07-15T09:55:00Z"
+      },
+      {
+        "schemaVersion": "0.1.0-draft.1",
+        "lifecycle": "draft",
+        "session": {"sessionId": "synthetic-session-001"},
+        "runId": "run-critic-001",
+        "collaborationLevel": "L2",
+        "actor": {"actorId": "synthetic-actor-b", "role": "critic", "provider": "mcp", "model": null},
+        "framework": {"releaseTag": "v1.0.0", "sourceCommit": "1111111111111111111111111111111111111111"},
+        "skill": {"id": "right-problem", "version": "1.0.1"},
+        "baseState": {"version": 0, "digest": "sha256:47307541e515af7299870bdb0d6b0815935aa03b6eb2b1910db495bab80e9c21"},
+        "digests": {
+          "profile": {"algorithm": "sha256", "canonicalization": "RFC8785", "encoding": "utf-8"},
+          "instructionsDigest": "sha256:abe6be2e01ec101915fca28bf0e137338324fe9d42294d27064aef447d3a221d",
+          "inputsDigest": "sha256:ee4f92c572356412d28227ecdb6cf3c399628adfda77a4f0d578da93461bb341",
+          "stateDigest": "sha256:47307541e515af7299870bdb0d6b0815935aa03b6eb2b1910db495bab80e9c21",
+          "caseDigest": "sha256:92296897466d1038a320091c75ff340a1570e2eb96f3b48762064836a54f915c",
+          "requestDigest": "sha256:dc79a8fc3ab32e56b82a216dda30c8fc838f4f1efda937eaf3ea7cd0208736f9"
+        },
+        "output": {
+          "summary": "The synthetic frame is usable, but measurement drift remains an alternative explanation.",
+          "evaluation": {
+            "score": 3,
+            "strengths": ["The preferred obstacle is supported by a synthetic observation."],
+            "weaknesses": ["The synthetic measurement method has not been independently checked."],
+            "missingInformation": ["An independent synthetic measurement check."],
+            "logicalIssues": [],
+            "recommendation": "Retain medium confidence until the synthetic evidence is reviewed.",
+            "confidence": "medium"
+          },
+          "reasoning": ["Synthetic measurement drift could fit the observation without a real processing change."],
+          "assumptions": ["Synthetic measurement drift remains possible."],
+          "missingInformation": ["An independent synthetic measurement check."],
+          "questions": ["Was the synthetic measurement method stable?"],
+          "nextStep": "Review the synthetic evidence before increasing confidence.",
+          "confidence": "medium"
+        },
+        "createdAt": "2026-07-15T09:56:00Z"
+      },
+      {
+        "schemaVersion": "0.1.0-draft.1",
+        "lifecycle": "draft",
+        "session": {"sessionId": "synthetic-session-001"},
+        "runId": "run-evidence-001",
+        "collaborationLevel": "L2",
+        "actor": {"actorId": "synthetic-actor-c", "role": "evidence-reviewer", "provider": "gemini", "model": "synthetic-model"},
+        "framework": {"releaseTag": "v1.0.0", "sourceCommit": "1111111111111111111111111111111111111111"},
+        "skill": {"id": "right-problem", "version": "1.0.1"},
+        "baseState": {"version": 1, "digest": "sha256:34642ba2f421bd85f58d220e20fde5dc4040b93bf38a9ede4f789cf1c31523a5"},
+        "digests": {
+          "profile": {"algorithm": "sha256", "canonicalization": "RFC8785", "encoding": "utf-8"},
+          "instructionsDigest": "sha256:a876e1c7645790f23a1c379cbc468bb603f11168ad04e4cc866688a004ee47dd",
+          "inputsDigest": "sha256:ee4f92c572356412d28227ecdb6cf3c399628adfda77a4f0d578da93461bb341",
+          "stateDigest": "sha256:34642ba2f421bd85f58d220e20fde5dc4040b93bf38a9ede4f789cf1c31523a5",
+          "caseDigest": "sha256:615e37792d017ce2c27b89fc624c25a1a19c430068f83a9c9747b67e29364da6",
+          "requestDigest": "sha256:fabb371dbeaa77a3ec9104eaaade863e7d84493db928a79a81f883089c6137e9"
+        },
+        "output": {
+          "summary": "The synthetic evidence is internally consistent with the recorded frame.",
+          "evaluation": {
+            "score": 3,
+            "strengths": ["Synthetic timing and arrival observations use one declared method."],
+            "weaknesses": ["The fixture cannot establish external validity."],
+            "missingInformation": [],
+            "logicalIssues": [],
+            "recommendation": "Record the evidence review without increasing beyond medium confidence.",
+            "confidence": "medium"
+          },
+          "reasoning": ["The synthetic source values are internally consistent."],
+          "assumptions": ["The fixture intentionally models no external evidence."],
+          "missingInformation": [],
+          "questions": [],
+          "nextStep": "Preserve the validated synthetic frame.",
+          "confidence": "medium"
+        },
+        "createdAt": "2026-07-15T10:04:00Z"
+      }
+    ],
+    "arbitrationRecords": [
+      {
+        "schemaVersion": "0.1.0-draft.1",
+        "lifecycle": "draft",
+        "recordId": "arb-001",
+        "sessionId": "synthetic-session-001",
+        "collaborationLevel": "L2",
+        "previousRecordDigest": null,
+        "baseState": {"version": 0, "digest": "sha256:47307541e515af7299870bdb0d6b0815935aa03b6eb2b1910db495bab80e9c21"},
+        "candidateDecisions": [
+          {"runId": "run-analyst-001", "disposition": "accepted", "reason": "The synthetic evidence supports the bounded problem frame."},
+          {"runId": "run-critic-001", "disposition": "partial", "reason": "The alternative explanation remains useful for confidence calibration.", "acceptedPaths": ["/reasoning/0", "/assumptions/0"]}
+        ],
+        "divergenceClassification": "none",
+        "basis": {
+          "evidenceReferences": ["fixture:synthetic-observation-001"],
+          "neverRuleViolations": [],
+          "rubricFindings": ["Goal and obstacle meet the synthetic sufficiency threshold."]
+        },
+        "arbiter": {"type": "human", "id": "synthetic-reviewer"},
+        "humanApproved": true,
+        "resultState": {"version": 1, "digest": "sha256:34642ba2f421bd85f58d220e20fde5dc4040b93bf38a9ede4f789cf1c31523a5"},
+        "createdAt": "2026-07-15T10:00:00Z",
+        "recordDigest": "sha256:d0f21d019e0d800069dbb2f8328c74288323618db5390d91b4f37d067d64ceeb"
+      },
+      {
+        "schemaVersion": "0.1.0-draft.1",
+        "lifecycle": "draft",
+        "recordId": "arb-002",
+        "sessionId": "synthetic-session-001",
+        "collaborationLevel": "L2",
+        "previousRecordDigest": "sha256:d0f21d019e0d800069dbb2f8328c74288323618db5390d91b4f37d067d64ceeb",
+        "baseState": {"version": 1, "digest": "sha256:34642ba2f421bd85f58d220e20fde5dc4040b93bf38a9ede4f789cf1c31523a5"},
+        "candidateDecisions": [
+          {"runId": "run-evidence-001", "disposition": "accepted", "reason": "The evidence review is consistent with the synthetic source values."}
+        ],
+        "divergenceClassification": "none",
+        "basis": {
+          "evidenceReferences": ["fixture:synthetic-observation-001"],
+          "neverRuleViolations": [],
+          "rubricFindings": ["Evidence confidence is sufficient for the next Thinking Skill."]
+        },
+        "arbiter": {"type": "human", "id": "synthetic-reviewer"},
+        "humanApproved": true,
+        "resultState": {"version": 2, "digest": "sha256:01502cdfec2f7f35799d2391276310de09bee71fcadb576a96c28048480ca78b"},
+        "createdAt": "2026-07-15T10:05:00Z",
+        "recordDigest": "sha256:1ccb3b36fc5ab2d2368c9f148cceb4b03bf990bc262706175e30adcc68a46f6f"
+      }
+    ]
+  }
+}

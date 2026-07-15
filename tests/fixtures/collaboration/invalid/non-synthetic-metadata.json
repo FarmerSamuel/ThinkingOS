@@ -1,0 +1,6 @@
+{
+  "fixtureMetadata": {"synthetic": false, "containsRealUserData": false, "purpose": "Prove that repository fixtures must explicitly declare synthetic provenance."},
+  "expectedFailure": "fixture-provenance",
+  "documentType": "none",
+  "document": {}
+}

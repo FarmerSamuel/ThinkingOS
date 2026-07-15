@@ -34,6 +34,8 @@ flowchart LR
 - 依照 [SDK 指南](sdk-guide.md)整合框架。
 - 依照[技能作者指南](skill-author-guide.md)建立合規技能。
 - 透過[問對問題指南](right-problem-guide.md)了解 Golden Skill。
+- 測試多 AI Workflow 前，先閱讀實驗性的[協作協定](collaboration-protocol.md)。
+- 依照 [Claude 使用指南](claude-guide.md)在 Claude 中執行技能。
 - 查看[思考圖譜](thinking-graph.md)了解技能之間的關係。
 
 ## 專案狀態

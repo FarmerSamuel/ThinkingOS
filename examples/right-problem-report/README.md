@@ -17,4 +17,3 @@ python -m http.server 8000 --directory examples/right-problem-report
 ```
 
 This implementation is original ThinkingOS project code informed by general problem-framing concepts. It does not copy the user-provided prototype markup.
-
