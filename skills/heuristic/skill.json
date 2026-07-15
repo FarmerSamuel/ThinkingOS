@@ -1,6 +1,6 @@
 {
   "name": "heuristic",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Construct a bounded decision shortcut with explicit applicability and failure conditions.",
   "purpose": {
     "problem": "Construct a bounded decision shortcut with explicit applicability and failure conditions.",

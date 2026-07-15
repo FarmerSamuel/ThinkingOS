@@ -1,6 +1,6 @@
 {
   "name": "mind-map",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Represent concept hierarchy and cross-links without confusing visual proximity with logical evidence.",
   "purpose": {
     "problem": "Represent concept hierarchy and cross-links without confusing visual proximity with logical evidence.",

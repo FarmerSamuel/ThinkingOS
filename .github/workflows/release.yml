@@ -28,6 +28,9 @@ jobs:
         with:
           python-version: "3.13"
 
+      - name: Install release dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-dev.txt build
+
       - name: Resolve tag
         id: version
         shell: bash
@@ -50,6 +53,10 @@ jobs:
           test "v$(tr -d '\r\n' < VERSION)" = "${{ steps.version.outputs.tag }}"
           grep -F "## [$(cat VERSION)]" CHANGELOG.md
           python tools/validate_repository.py
+          python -m unittest discover -s tests -v
+
+      - name: Build Python distributions
+        run: python -m build
 
       - name: Create source archives
         shell: bash
@@ -57,7 +64,12 @@ jobs:
           version="$(cat VERSION)"
           git archive --format=tar.gz --prefix="ThinkingOS-${version}/" -o "ThinkingOS-${version}.tar.gz" HEAD
           git archive --format=zip --prefix="ThinkingOS-${version}/" -o "ThinkingOS-${version}.zip" HEAD
-          sha256sum "ThinkingOS-${version}.tar.gz" "ThinkingOS-${version}.zip" > SHA256SUMS
+          sha256sum \
+            "ThinkingOS-${version}.tar.gz" \
+            "ThinkingOS-${version}.zip" \
+            "dist/thinkingos_framework-${version}.tar.gz" \
+            "dist/thinkingos_framework-${version}-py3-none-any.whl" \
+            > SHA256SUMS
 
       - name: Create GitHub release
         env:
@@ -68,6 +80,8 @@ jobs:
           gh release create "${{ steps.version.outputs.tag }}" \
             "ThinkingOS-${version}.tar.gz" \
             "ThinkingOS-${version}.zip" \
+            "dist/thinkingos_framework-${version}.tar.gz" \
+            "dist/thinkingos_framework-${version}-py3-none-any.whl" \
             SHA256SUMS \
             --verify-tag \
             --title "ThinkingOS ${version}" \

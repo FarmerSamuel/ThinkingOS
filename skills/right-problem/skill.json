@@ -1,6 +1,6 @@
 {
   "name": "right-problem",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Validates whether a stated problem is the problem that should be solved before solution generation begins.",
   "purpose": {
     "problem": "People often begin solving an ambiguous, symptom-led, or solution-led problem before validating the goal, obstacle, constraints, and supporting evidence.",

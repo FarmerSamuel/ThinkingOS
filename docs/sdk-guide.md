@@ -60,7 +60,8 @@ restored = ConversationState.from_json(serialized)
 ```
 
 State serialization uses the universal fields defined in
-[`core/conversation-state.md`](../core/conversation-state.md). Applications
+[`core/conversation-state.md`](https://github.com/FarmerSamuel/ThinkingOS/blob/main/core/conversation-state.md).
+Applications
 should persist only goal-relevant data and apply their own privacy and retention
 controls.
 
@@ -68,7 +69,8 @@ controls.
 
 Use an adapter after loading and validating a Skill. Adapters produce payloads;
 the application owns transport, authentication, retries, and output validation.
-See the repository's [`adapters/README.md`](../adapters/README.md).
+See the repository's
+[`adapters/README.md`](https://github.com/FarmerSamuel/ThinkingOS/blob/main/adapters/README.md).
 
 ## Compatibility
 

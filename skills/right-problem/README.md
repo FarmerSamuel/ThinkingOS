@@ -2,8 +2,8 @@
 
 `#RightProblem` is the ThinkingOS Golden Skill: the reference implementation for authoring, reviewing, and testing future Thinking Skills. It validates whether the stated problem is the problem that should be solved before solution generation begins.
 
-**Version:** 0.1.0  
-**Status:** Draft reference implementation
+- **Version:** 1.0.0
+- **Status:** Released Golden Skill
 
 ## Purpose
 

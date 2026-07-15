@@ -1,6 +1,6 @@
 {
   "name": "analogy",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Transfer insight through explicit structural mappings while exposing where an analogy fails.",
   "purpose": {
     "problem": "Transfer insight through explicit structural mappings while exposing where an analogy fails.",

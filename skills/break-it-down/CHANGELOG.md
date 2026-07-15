@@ -4,6 +4,12 @@ All notable changes to Break It Down are documented here using Semantic Versioni
 
 ## [Unreleased]
 
+## [1.0.0] — 2026-07-15
+
+### Changed
+
+- Promoted the validated skill contract to the stable ThinkingOS v1.0 release.
+
 ## [0.1.0] — 2026-07-15
 
 ### Added

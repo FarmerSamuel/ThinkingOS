@@ -1,7 +1,7 @@
 id: constraints
 name: Constraints
-version: 0.1.0
-status: draft
+version: 1.0.0
+status: released
 category: problem-framing
 author: FarmerSamuel
 requires:

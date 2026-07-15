@@ -1,6 +1,6 @@
 {
   "name": "make-association",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Create and evaluate meaningful connections between elaborated concepts and prior knowledge.",
   "purpose": {
     "problem": "Create and evaluate meaningful connections between elaborated concepts and prior knowledge.",

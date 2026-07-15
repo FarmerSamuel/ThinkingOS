@@ -1,6 +1,6 @@
 {
   "name": "emergence",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Identify system-level patterns that arise from interactions and cannot be explained by isolated parts alone.",
   "purpose": {
     "problem": "Identify system-level patterns that arise from interactions and cannot be explained by isolated parts alone.",

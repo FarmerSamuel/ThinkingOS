@@ -1,6 +1,6 @@
 {
   "name": "constraints",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Identify, classify, and test the boundaries that define the feasible problem space.",
   "purpose": {
     "problem": "Identify, classify, and test the boundaries that define the feasible problem space.",

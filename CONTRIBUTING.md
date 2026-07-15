@@ -12,13 +12,16 @@ Thank you for helping improve ThinkingOS.
 
 1. Fork the repository and create a focused branch.
 2. Keep changes small, documented, and aligned with the project structure.
-3. Add or update tests when implementation work begins.
+3. Add or update tests for every behavior or public contract change.
 4. Update `CHANGELOG.md` for user-visible changes.
 5. Open a pull request with a clear summary and verification notes.
 
 ## Project scope
 
-The initial repository contains architecture only. Do not add a skill implementation without prior discussion and an accepted design.
+ThinkingOS v1.x maintains stable Core, Skill, Schema, SDK, and Adapter contracts.
+Discuss new Skills and breaking public changes before implementation. A Skill
+must represent one reusable thinking habit and comply with the official Skill
+Specification.
 
 ## Commit messages
 

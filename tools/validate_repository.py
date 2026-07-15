@@ -35,9 +35,14 @@ def parse_registry() -> dict[str, dict]:
             continue
         skill_id = match.group(1)
         status = re.search(r"(?m)^    status: ([a-z-]+)$", block)
+        version = re.search(r"(?m)^    version: ([0-9A-Za-z.-]+)$", block)
         dep_section = re.search(r"(?ms)^    dependencies:(.*?)(?=^    produces:)", block)
         dependencies = re.findall(r"(?m)^      - ([a-z0-9-]+)$", dep_section.group(1) if dep_section else "")
-        result[skill_id] = {"status": status.group(1) if status else None, "dependencies": dependencies}
+        result[skill_id] = {
+            "status": status.group(1) if status else None,
+            "version": version.group(1) if version else None,
+            "dependencies": dependencies,
+        }
     return result
 
 
@@ -116,6 +121,26 @@ def validate_skill(directory: Path, registry: dict[str, dict], schema: dict, err
         errors.append(f"{skill_id}: not registered")
     elif metadata_value(metadata, "status") != registry[skill_id]["status"]:
         errors.append(f"{skill_id}: metadata/registry status mismatch")
+    elif data.get("version") != registry[skill_id]["version"]:
+        errors.append(f"{skill_id}: skill/registry version mismatch")
+
+
+def validate_project_version(errors: list[str]) -> None:
+    version_file = ROOT / "VERSION"
+    if not version_file.exists():
+        return
+    version = version_file.read_text(encoding="utf-8").strip()
+    if not re.fullmatch(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)", version):
+        errors.append("VERSION: invalid stable semantic version")
+        return
+    pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    sdk = (ROOT / "thinkingos" / "__init__.py").read_text(encoding="utf-8")
+    if not re.search(rf'(?m)^version = "{re.escape(version)}"$', pyproject):
+        errors.append("VERSION: pyproject.toml version mismatch")
+    if not re.search(rf'(?m)^__version__ = "{re.escape(version)}"$', sdk):
+        errors.append("VERSION: SDK version mismatch")
+    if not re.search(rf"(?m)^## \[{re.escape(version)}\]", (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")):
+        errors.append("VERSION: CHANGELOG.md release entry missing")
 
 
 def validate_docs(errors: list[str]) -> None:
@@ -151,6 +176,7 @@ def main() -> int:
     errors: list[str] = []
     registry = parse_registry()
     validate_graph(registry, errors)
+    validate_project_version(errors)
     validate_docs(errors)
     validate_yaml(errors)
     schema = json.loads((ROOT / "schemas" / "skill.schema.json").read_text(encoding="utf-8"))

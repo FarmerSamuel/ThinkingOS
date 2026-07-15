@@ -1,7 +1,7 @@
 id: analogy
 name: Analogy
-version: 0.1.0
-status: draft
+version: 1.0.0
+status: released
 category: reasoning
 author: FarmerSamuel
 requires:

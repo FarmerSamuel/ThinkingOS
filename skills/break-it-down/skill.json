@@ -1,6 +1,6 @@
 {
   "name": "break-it-down",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Decomposes a validated problem into coherent, dependency-aware minimum tractable units.",
   "purpose": {
     "problem": "Broad or coupled problems cannot be evaluated reliably as a single undifferentiated whole.",

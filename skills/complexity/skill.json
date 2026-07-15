@@ -1,6 +1,6 @@
 {
   "name": "complexity",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Evaluate interaction, dependency, uncertainty, and adaptation within a bounded system.",
   "purpose": {
     "problem": "Evaluate interaction, dependency, uncertainty, and adaptation within a bounded system.",

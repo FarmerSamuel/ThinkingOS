@@ -37,4 +37,6 @@ The Engine stops or loops when a blocking ambiguity, contradiction, or missing d
 
 ## Project status
 
-ThinkingOS is progressing toward v1.0. Registry status and per-skill changelogs are authoritative; roadmap inclusion alone does not imply a stable release.
+ThinkingOS v1.0 is the first stable framework release. Public SDK APIs and
+released contracts follow Semantic Versioning. Provider model availability is
+not part of the compatibility guarantee.

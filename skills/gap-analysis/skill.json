@@ -1,6 +1,6 @@
 {
   "name": "gap-analysis",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Compare validated current and target states and prioritize the gaps that prevent transition.",
   "purpose": {
     "problem": "Compare validated current and target states and prioritize the gaps that prevent transition.",

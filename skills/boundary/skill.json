@@ -1,6 +1,6 @@
 {
   "name": "boundary",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Define what is inside, outside, and crossing a system boundary for a validated problem.",
   "purpose": {
     "problem": "Define what is inside, outside, and crossing a system boundary for a validated problem.",

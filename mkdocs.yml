@@ -51,6 +51,7 @@ nav:
       - Contribution Guide: contribution-guide.md
   - Project:
       - Roadmap: roadmap.md
+      - Future Work: future-work.md
 
 markdown_extensions:
   - admonition
