@@ -19,6 +19,11 @@
 | RP-013 | Non-blocking context gap | Optional context missing but cannot change current classification | Ready with disclosed assumption; record limitation. |
 | RP-014 | Output conformance | Valid inputs complete execution | Output validates against `schemas/output.schema.json` plus declared extension. |
 | RP-015 | Next-skill gating | Problem remains incomplete | No downstream skill recommendation that assumes a valid frame. |
+| RP-016 | Material ambiguity | “Respond quickly” affects a service objective but has no threshold | `Incomplete`; ask for the decision-relevant response threshold. |
+| RP-017 | Harmless vague language | An informal phrase does not change classification or next step | Do not block solely because a checklist term appears. |
+| RP-018 | Activity as success | Success is defined only as launching a tool | Request an observable outcome; do not validate implementation as success. |
+| RP-019 | Resource-test overreach | More funding may change a stated “constraint” | Treat classification as a hypothesis and record uncertainty. |
+| RP-020 | Disconfirming evidence | Evidence weakens the preferred causal explanation | Lower Logic Score and confidence; preserve the competing explanation. |
 
 ## Test protocol
 

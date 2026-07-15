@@ -2,7 +2,7 @@
 
 `#RightProblem` is the ThinkingOS Golden Skill: the reference implementation for authoring, reviewing, and testing future Thinking Skills. It validates whether the stated problem is the problem that should be solved before solution generation begins.
 
-- **Version:** 1.0.0
+- **Version:** 1.0.1
 - **Status:** Released Golden Skill
 
 ## Purpose
@@ -90,3 +90,5 @@ A host implementation supplies inputs using its own interface, maps them into `s
 - `tests.md` — conformance cases
 - `references.md` — normative and informative sources
 - `CHANGELOG.md` — version history
+
+See the bilingual [Right Problem Guide](../../docs/right-problem-guide.md) for human-facing usage and the [report example](../../examples/right-problem-report/README.md) for a presentation adapter that remains outside the reasoning contract.

@@ -14,7 +14,7 @@
 
 - **0:** No goal, or the “goal” is only a preselected solution.
 - **2:** A desired outcome exists but lacks scope or success evidence.
-- **4:** Outcome, stakeholder, scope, and success criteria are explicit and relevant.
+- **4:** Outcome, stakeholder, scope, and observable success criteria are explicit, relevant, and independent of a preselected solution.
 
 ## Obstacle Score anchors
 
@@ -32,7 +32,7 @@
 
 - **0:** Goal, obstacle, evidence, and conclusion contradict one another.
 - **2:** The frame is plausible but contains an unsupported inference or unresolved alternative.
-- **4:** The obstacle explains the goal gap, evidence is relevant, assumptions are explicit, and alternatives have been tested.
+- **4:** The obstacle explains the goal gap, evidence is relevant, assumptions are explicit, and plausible alternatives and disconfirming observations have been tested.
 
 ## Overall Thinking Score anchors
 

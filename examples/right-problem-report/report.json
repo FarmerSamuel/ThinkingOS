@@ -1,0 +1,25 @@
+{
+  "title": "Qualified Pipeline Conversion",
+  "generatedAt": "2026-07-15T08:00:00Z",
+  "status": "Incomplete",
+  "summary": "Conversion declined, but the available evidence does not yet identify which pipeline stage or obstacle explains the change.",
+  "currentCondition": "Qualified-pipeline conversion declined from 20% to 14% while lead volume remained stable.",
+  "goal": "Restore qualified-pipeline conversion to at least 20% for the next complete quarter.",
+  "obstacles": [
+    {"statement": "A stage-level loss may explain the decline, but stage data is unavailable.", "basis": "inference"}
+  ],
+  "constraints": [
+    {"statement": "Customer data must remain under the existing retention policy.", "basis": "user-claim", "classification": "fixed"},
+    {"statement": "The CRM platform cannot change this quarter.", "basis": "user-claim", "classification": "assumed"}
+  ],
+  "successCriteria": [
+    "Qualified-pipeline conversion is at least 20% for one complete quarter.",
+    "The measurement uses the existing qualified-lead definition."
+  ],
+  "scopeExclusions": ["Selecting or implementing a CRM before the obstacle is validated."],
+  "assumptions": ["Lead quality is comparable across the measured periods."],
+  "missingInformation": ["Stage-level conversion and loss reasons for both periods."],
+  "scores": {"goal": 4, "obstacle": 2, "constraint": 2, "logic": 2, "overall": 2},
+  "nextStep": "Collect stage-level conversion evidence before selecting a downstream skill.",
+  "confidence": "medium"
+}

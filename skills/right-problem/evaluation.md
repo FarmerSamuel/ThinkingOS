@@ -6,7 +6,7 @@ Each dimension is scored from **0 to 4** using `rubric.md`. Scores describe the 
 
 ### Goal Score
 
-Measures whether the desired outcome is clear, relevant, distinguishable from an activity, and supported by observable success criteria.
+Measures whether the desired outcome is clear, relevant, distinguishable from an activity, and supported by observable success criteria. A criterion is stronger when it states the affected outcome, scope, and evidence or decision threshold without requiring a preselected solution.
 
 ### Obstacle Score
 
@@ -18,7 +18,7 @@ Measures whether material boundaries are identified, classified, and separated f
 
 ### Logic Score
 
-Measures whether the goal, obstacle, constraints, evidence, and conclusion form a consistent and adequately supported problem frame.
+Measures whether the goal, obstacle, constraints, evidence, and conclusion form a consistent and adequately supported problem frame. Material causal claims should survive a plausible alternative explanation, hidden-assumption check, and search for disconfirming evidence.
 
 ### Overall Thinking Score
 

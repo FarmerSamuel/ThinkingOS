@@ -50,3 +50,7 @@ The broad self-assessment is reframed as a specific decision-skill gap. The evid
 ### Evaluation
 
 The goal is ambiguous, the obstacle is an unsupported judgment about people, and no evidence connects the claim to performance. The frame is `Invalid` as stated. Ask: “What observable performance outcome has changed, for which group, and over what period?”
+
+## Presentation example
+
+After evaluation, a host may map the universal output into the presentation-only [Right Problem report example](../../examples/right-problem-report/README.md). The report must preserve status, evidence basis, assumptions, missing information, and transition gating. It must not add solution recommendations or implementation plans to an incomplete frame.

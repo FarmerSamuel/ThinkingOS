@@ -33,6 +33,7 @@ flowchart LR
 - 使用[開發者指南](developer-guide.md)驗證與測試儲存庫。
 - 依照 [SDK 指南](sdk-guide.md)整合框架。
 - 依照[技能作者指南](skill-author-guide.md)建立合規技能。
+- 透過[問對問題指南](right-problem-guide.md)了解 Golden Skill。
 - 查看[思考圖譜](thinking-graph.md)了解技能之間的關係。
 
 ## 專案狀態

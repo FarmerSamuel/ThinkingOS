@@ -10,6 +10,13 @@ All notable changes to this project are documented here. The format follows
 
 - Complete Traditional Chinese documentation with one-to-one page parity,
   localized navigation, search, and an English/繁體中文 language switcher.
+- Bilingual Right Problem usage guide, reusable problem-framing knowledge,
+  and a safe, schema-backed report presentation example.
+
+### Changed
+
+- Refined Right Problem 1.0.1 with material-ambiguity, observable-success,
+  obstacle/constraint, and alternative-explanation diagnostics.
 
 ## [1.0.0] - 2026-07-15
 

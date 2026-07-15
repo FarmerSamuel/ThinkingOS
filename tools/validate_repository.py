@@ -178,6 +178,25 @@ def validate_yaml(errors: list[str]) -> None:
             errors.append(f"{path.relative_to(ROOT)}: invalid YAML: {exc}")
 
 
+def validate_report_example(errors: list[str]) -> None:
+    schema_path = ROOT / "schemas" / "right-problem-report.schema.json"
+    example_path = ROOT / "examples" / "right-problem-report" / "report.json"
+    try:
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        example = json.loads(example_path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError) as exc:
+        errors.append(f"right-problem report example: {exc}")
+        return
+    if jsonschema is not None:
+        validator = jsonschema.Draft202012Validator(
+            schema,
+            format_checker=jsonschema.FormatChecker(),
+        )
+        for violation in validator.iter_errors(example):
+            location = ".".join(str(part) for part in violation.absolute_path) or "<root>"
+            errors.append(f"right-problem report example at {location}: {violation.message}")
+
+
 def main() -> int:
     errors: list[str] = []
     registry = parse_registry()
@@ -185,6 +204,7 @@ def main() -> int:
     validate_project_version(errors)
     validate_docs(errors)
     validate_yaml(errors)
+    validate_report_example(errors)
     schema = json.loads((ROOT / "schemas" / "skill.schema.json").read_text(encoding="utf-8"))
     for directory in sorted((ROOT / "skills").iterdir()):
         if directory.is_dir():

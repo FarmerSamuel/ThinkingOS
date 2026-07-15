@@ -3,7 +3,7 @@ skills:
   - id: right-problem
     displayName: Right Problem
     category: problem-framing
-    version: 1.0.0
+    version: 1.0.1
     status: released
     dependencies: []
     produces:

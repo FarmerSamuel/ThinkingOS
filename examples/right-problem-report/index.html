@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Bilingual ThinkingOS Right Problem evaluation report">
+    <title>ThinkingOS · Right Problem Report</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="report" aria-labelledby="report-title">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">ThinkingOS · #RightProblem</p>
+          <h1 id="report-title">Problem Validation Report<br><span lang="zh-Hant">問題驗證報告</span></h1>
+        </div>
+        <div class="status" aria-label="Validation status">
+          <span>Status／狀態</span>
+          <strong id="status">Loading</strong>
+        </div>
+      </header>
+
+      <p id="load-error" class="error" role="alert" hidden></p>
+
+      <section class="summary" aria-labelledby="summary-heading">
+        <h2 id="summary-heading">Executive Summary／摘要</h2>
+        <p id="summary"></p>
+        <dl class="meta">
+          <div><dt>Confidence／信心</dt><dd id="confidence"></dd></div>
+          <div><dt>Generated／產生時間</dt><dd id="generated-at"></dd></div>
+        </dl>
+      </section>
+
+      <div class="grid">
+        <section class="card"><h2>Current Condition／目前狀況</h2><p id="current-condition"></p></section>
+        <section class="card"><h2>Goal／目標</h2><p id="goal"></p></section>
+        <section class="card"><h2>Obstacles／障礙</h2><ul id="obstacles"></ul></section>
+        <section class="card"><h2>Constraints／限制</h2><ul id="constraints"></ul></section>
+        <section class="card"><h2>Success Criteria／成功標準</h2><ul id="success-criteria"></ul></section>
+        <section class="card"><h2>Scope Exclusions／排除範圍</h2><ul id="scope-exclusions"></ul></section>
+        <section class="card"><h2>Assumptions／假設</h2><ul id="assumptions"></ul></section>
+        <section class="card"><h2>Missing Information／缺少資訊</h2><ul id="missing-information"></ul></section>
+      </div>
+
+      <section class="scores" aria-labelledby="scores-heading">
+        <h2 id="scores-heading">Evaluation／評估</h2>
+        <div id="score-list" class="score-list"></div>
+      </section>
+
+      <section class="next-step" aria-labelledby="next-heading">
+        <h2 id="next-heading">Next Thinking Step／下一個思考步驟</h2>
+        <p id="next-step"></p>
+        <p class="gate">Downstream solution work is permitted only when the problem frame is valid.<br><span lang="zh-Hant">只有問題框架有效時，才能進入下游方案工作。</span></p>
+      </section>
+    </main>
+  </body>
+</html>
+

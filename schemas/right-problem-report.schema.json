@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thinkingos.dev/schemas/right-problem-report.schema.json",
+  "title": "Right Problem Report View Model",
+  "description": "A presentation-only view model derived from a validated ThinkingOS output. It does not extend the Right Problem reasoning contract.",
+  "type": "object",
+  "required": ["title", "status", "summary", "currentCondition", "goal", "obstacles", "constraints", "successCriteria", "assumptions", "missingInformation", "confidence"],
+  "properties": {
+    "title": {"type": "string", "minLength": 1},
+    "generatedAt": {"type": "string", "format": "date-time"},
+    "status": {"type": "string", "enum": ["Valid", "Invalid", "Incomplete"]},
+    "summary": {"type": "string", "minLength": 1},
+    "currentCondition": {"type": "string", "minLength": 1},
+    "goal": {"type": "string", "minLength": 1},
+    "obstacles": {"type": "array", "items": {"$ref": "#/$defs/finding"}},
+    "constraints": {"type": "array", "items": {"$ref": "#/$defs/classifiedFinding"}},
+    "successCriteria": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "scopeExclusions": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "assumptions": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "missingInformation": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "scores": {
+      "type": "object",
+      "properties": {
+        "goal": {"type": "integer", "minimum": 0, "maximum": 4},
+        "obstacle": {"type": "integer", "minimum": 0, "maximum": 4},
+        "constraint": {"type": "integer", "minimum": 0, "maximum": 4},
+        "logic": {"type": "integer", "minimum": 0, "maximum": 4},
+        "overall": {"type": "integer", "minimum": 0, "maximum": 4}
+      },
+      "additionalProperties": false
+    },
+    "nextStep": {"type": "string", "minLength": 1},
+    "confidence": {"type": "string", "enum": ["low", "medium", "high"]}
+  },
+  "$defs": {
+    "finding": {
+      "type": "object",
+      "required": ["statement", "basis"],
+      "properties": {
+        "statement": {"type": "string", "minLength": 1},
+        "basis": {"type": "string", "enum": ["evidence", "user-claim", "inference", "unknown"]}
+      },
+      "additionalProperties": false
+    },
+    "classifiedFinding": {
+      "type": "object",
+      "required": ["statement", "basis", "classification"],
+      "properties": {
+        "statement": {"type": "string", "minLength": 1},
+        "basis": {"type": "string", "enum": ["evidence", "user-claim", "inference", "unknown"]},
+        "classification": {"type": "string", "enum": ["fixed", "negotiable", "assumed", "unknown"]}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

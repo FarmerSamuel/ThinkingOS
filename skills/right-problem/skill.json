@@ -1,6 +1,6 @@
 {
   "name": "right-problem",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Validates whether a stated problem is the problem that should be solved before solution generation begins.",
   "purpose": {
     "problem": "People often begin solving an ambiguous, symptom-led, or solution-led problem before validating the goal, obstacle, constraints, and supporting evidence.",
@@ -89,6 +89,12 @@
       "description": "Goals, obstacles, constraints, assumptions, and evidence must be internally consistent.",
       "condition": "no unresolved contradiction blocks evaluation",
       "onFailure": "Record the contradiction and classify the frame as incomplete or invalid."
+    },
+    {
+      "id": "RP-V05",
+      "description": "Success criteria must be observable enough to distinguish improvement from activity completion.",
+      "condition": "the goal includes evidence or a decision criterion appropriate to the current decision",
+      "onFailure": "Request the smallest success definition that would materially change evaluation."
     }
   ],
   "logic": [
@@ -121,6 +127,12 @@
       "description": "Classify the complete frame as Valid, Invalid, or Incomplete using blocking conditions and rubric evidence.",
       "condition": "classification and scores are mutually consistent",
       "onFailure": "Return Incomplete with the unresolved inconsistency."
+    },
+    {
+      "id": "RP-L06",
+      "description": "Challenge the frame with at least one plausible alternative explanation or disconfirming observation when causality is material.",
+      "condition": "material alternatives are tested or explicitly recorded as unknown",
+      "onFailure": "Lower confidence and request evidence that discriminates between explanations."
     }
   ],
   "evaluation": {
@@ -187,7 +199,8 @@
     "Never treat a proposed solution as a validated problem.",
     "Never attribute motive, character, or capability without evidence.",
     "Never hide a blocking ambiguity behind an overall score.",
-    "Never recommend a downstream skill whose prerequisites are unsatisfied."
+    "Never recommend a downstream skill whose prerequisites are unsatisfied.",
+    "Never treat an ambiguity checklist, Five Whys chain, or resource test as proof."
   ],
   "nextSkill": [
     {

@@ -6,6 +6,14 @@ The format follows Keep a Changelog, and versions follow Semantic Versioning.
 
 ## [Unreleased]
 
+## [1.0.1] — 2026-07-15
+
+### Changed
+
+- Added material-ambiguity and observable-success validation guidance.
+- Added evidence-aware obstacle/constraint and alternative-explanation diagnostics.
+- Clarified that checklists, Five Whys chains, and resource tests are heuristics rather than proof.
+
 ## [1.0.0] — 2026-07-15
 
 ### Changed
