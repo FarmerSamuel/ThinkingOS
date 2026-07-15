@@ -19,7 +19,7 @@ skills:
     displayName: Break It Down
     category: decomposition
     version: 0.1.0
-    status: planned
+    status: draft
     dependencies:
       - right-problem
     produces:

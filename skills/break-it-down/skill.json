@@ -1,0 +1,79 @@
+{
+  "name": "break-it-down",
+  "version": "0.1.0",
+  "description": "Decomposes a validated problem into coherent, dependency-aware minimum tractable units.",
+  "purpose": {
+    "problem": "Broad or coupled problems cannot be evaluated reliably as a single undifferentiated whole.",
+    "outcome": "A goal-aligned component structure with tractable leaves and explicit dependencies.",
+    "inScope": ["Selecting a decomposition basis", "Creating components", "Testing coverage and overlap", "Mapping dependencies", "Defining tractable units"],
+    "outOfScope": ["Validating the original problem", "Solving components", "Assigning implementation work", "Selecting technology"]
+  },
+  "thinkingHabit": "Make a complex problem tractable by decomposing it without losing meaning or dependencies.",
+  "thinkingElements": ["ValidatedProblem", "Goal", "Component", "MinimumTractableUnit", "Dependency", "Boundary"],
+  "requiredInputs": [
+    {"name": "validatedProblem", "description": "A validated problem frame.", "required": true, "schema": {"type": "string", "minLength": 1}},
+    {"name": "goal", "description": "The outcome the decomposition must preserve.", "required": true, "schema": {"type": "string", "minLength": 1}},
+    {"name": "knownStructure", "description": "Optional known components and dependencies.", "required": false, "schema": {"type": ["object", "array", "null"]}},
+    {"name": "stoppingCriteria", "description": "Optional conditions defining tractability.", "required": false, "schema": {"type": ["string", "array", "null"]}}
+  ],
+  "validation": [
+    {"id": "BID-V01", "description": "The problem and goal must be present and consistent.", "condition": "validatedProblem and goal are usable", "onFailure": "Request prerequisite clarification."},
+    {"id": "BID-V02", "description": "The decomposition basis must be coherent at each level.", "condition": "siblings use one organizing principle", "onFailure": "Reject mixed levels and select one basis."},
+    {"id": "BID-V03", "description": "The problem boundary must be sufficiently clear.", "condition": "in-scope and out-of-scope concerns can be distinguished", "onFailure": "Request boundary clarification."}
+  ],
+  "logic": [
+    {"id": "BID-L01", "description": "Generate candidate components using one declared basis.", "condition": "each component belongs at the same abstraction level", "onFailure": "Refine the basis or component level."},
+    {"id": "BID-L02", "description": "Test collective coverage and sibling overlap.", "condition": "material scope is covered without silent duplication", "onFailure": "Add missing components or resolve overlap."},
+    {"id": "BID-L03", "description": "Refine leaves until stopping criteria are met.", "condition": "each leaf is independently evaluable enough for a next step", "onFailure": "Continue decomposition or disclose the limit."},
+    {"id": "BID-L04", "description": "Preserve dependencies and cross-cutting concerns.", "condition": "coupling and order are explicit", "onFailure": "Record dependency issues and reduce confidence."}
+  ],
+  "evaluation": {
+    "criteria": [
+      {"name": "Coverage Score", "description": "Completeness of in-scope representation.", "weight": 0.25},
+      {"name": "Distinctness Score", "description": "Separation of sibling responsibilities.", "weight": 0.15},
+      {"name": "Tractability Score", "description": "Fitness of leaves for reliable analysis.", "weight": 0.2},
+      {"name": "Dependency Score", "description": "Preservation of sequencing and coupling.", "weight": 0.2},
+      {"name": "Goal Alignment Score", "description": "Traceability of components to the validated goal.", "weight": 0.2}
+    ],
+    "scoringScale": {"minimum": 0, "maximum": 4, "labels": {"0": "unusable", "1": "weak", "2": "partial", "3": "sufficient", "4": "robust"}}
+  },
+  "conversationRules": [
+    "Confirm the decomposition basis before expanding the tree.",
+    "Ask one boundary or structure question at a time.",
+    "Explain why further decomposition is or is not useful.",
+    "Do not turn components into premature solutions."
+  ],
+  "output": {
+    "schema": "../../schemas/output.schema.json",
+    "extensions": {"scoreReporting": {"overall": "evaluation.score", "dimensions": "reasoning", "componentTree": "reasoning"}}
+  },
+  "neverRules": [
+    "Never run without a validated problem and goal.",
+    "Never mix decomposition bases silently.",
+    "Never hide overlap, omissions, or dependencies.",
+    "Never equate more detail with better decomposition.",
+    "Never solve components during decomposition."
+  ],
+  "nextSkill": [
+    {"skill": "deep-processing", "condition": "Components require conceptual elaboration.", "reason": "Develop understanding of the tractable units."},
+    {"skill": "mind-map", "condition": "The component relationships need visualization.", "reason": "Represent hierarchy and cross-links."},
+    {"skill": "complexity", "condition": "Interactions and dependencies dominate behavior.", "reason": "Evaluate system complexity explicitly."}
+  ],
+  "examples": [
+    {"name": "Process decomposition", "input": {"validatedProblem": "Order fulfillment is slow.", "goal": "Reduce fulfillment lead time."}, "expectedOutput": {"basis": "process", "status": "sufficient"}},
+    {"name": "Mixed-basis failure", "input": {"validatedProblem": "Delivery is unreliable.", "goal": "Improve reliability.", "knownStructure": ["Operations", "Late handoff", "Q4"]}, "expectedOutput": {"status": "incomplete", "issue": "mixed decomposition bases"}}
+  ],
+  "references": [
+    {"title": "ThinkingOS Skill Specification", "citation": "../../docs/skill-specification.md"},
+    {"title": "ThinkingOS Reasoning Engine", "citation": "../../core/engine.md"},
+    {"title": "Right Problem", "citation": "../right-problem/README.md"}
+  ],
+  "tests": [
+    {"name": "BID-001 valid decomposition", "input": {"validatedProblem": "Supported problem", "goal": "Measurable goal"}, "expected": {"minimumOverallScore": 3}},
+    {"name": "BID-002 missing problem", "input": {"goal": "Goal"}, "expected": {"status": "incomplete"}},
+    {"name": "BID-003 mixed basis", "input": {"validatedProblem": "Problem", "goal": "Goal", "knownStructure": ["Team", "Cause", "Month"]}, "expected": {"mixedBasisRejected": true}},
+    {"name": "BID-004 overlap", "input": {"validatedProblem": "Problem", "goal": "Goal"}, "expected": {"overlapChecked": true}},
+    {"name": "BID-005 dependency", "input": {"validatedProblem": "Problem", "goal": "Goal"}, "expected": {"dependenciesPreserved": true}}
+  ],
+  "extensions": {"goldenSkillCompatible": true, "documentation": {"workflow": "workflow.md", "validation": "validation.md", "evaluation": "evaluation.md", "rubric": "rubric.md", "examples": "examples.md", "tests": "tests.md", "references": "references.md"}}
+}

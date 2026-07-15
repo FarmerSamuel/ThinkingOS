@@ -1,0 +1,22 @@
+id: break-it-down
+name: Break It Down
+version: 0.1.0
+status: draft
+category: decomposition
+author: FarmerSamuel
+requires:
+  - ValidatedProblem
+  - ClarifiedGoal
+produces:
+  - ProblemComponents
+  - MinimumTractableUnits
+  - DependencyStructure
+dependencies:
+  - right-problem
+nextSkill:
+  - id: deep-processing
+    condition: Components require deeper conceptual understanding.
+  - id: mind-map
+    condition: Components and relationships should be visualized.
+  - id: complexity
+    condition: Interactions and dependency behavior require systems analysis.
