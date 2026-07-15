@@ -9,7 +9,6 @@ theme:
   name: material
   language: en
   features:
-    - navigation.instant
     - navigation.sections
     - navigation.top
     - content.code.copy
@@ -73,5 +72,40 @@ markdown_extensions:
 
 plugins:
   - search
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: false
+      languages:
+        - locale: en
+          default: true
+          name: English
+          build: true
+        - locale: zh
+          name: 繁體中文
+          build: true
+          site_name: ThinkingOS 繁體中文文件
+          site_description: 可重複使用、經過驗證且不綁定 AI 平台的思考框架。
+          nav_translations:
+            Home: 首頁
+            Concepts: 核心概念
+            Architecture: 架構
+            Core Design Principles: 核心設計原則
+            Reasoning Engine: 推理引擎
+            Thinking Language: 思考語言
+            Thinking Graph: 思考圖譜
+            Evaluation Model: 評估模型
+            Specifications: 規格
+            Skill Specification: 技能規格
+            Skill Lifecycle: 技能生命週期
+            Skill Dependencies: 技能相依關係
+            Naming Conventions: 命名慣例
+            Guides: 指南
+            Developer Guide: 開發者指南
+            SDK Guide: SDK 指南
+            Skill Author Guide: 技能作者指南
+            Contribution Guide: 貢獻指南
+            Project: 專案
+            Roadmap: 路線圖
+            Future Work: 未來工作
 
 strict: true

@@ -6,6 +6,11 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- Complete Traditional Chinese documentation with one-to-one page parity,
+  localized navigation, search, and an English/繁體中文 language switcher.
+
 ## [1.0.0] - 2026-07-15
 
 ### Added

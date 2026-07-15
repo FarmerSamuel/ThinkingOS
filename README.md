@@ -75,6 +75,8 @@ model choice, retries, privacy controls, and final output validation.
 
 ## Documentation
 
+- [English documentation](https://farmersamuel.github.io/ThinkingOS/)
+- [繁體中文文件](https://farmersamuel.github.io/ThinkingOS/zh/)
 - [Architecture](docs/architecture.md)
 - [Skill Specification](docs/skill-specification.md)
 - [SDK Guide](docs/sdk-guide.md)

@@ -146,6 +146,12 @@ def validate_project_version(errors: list[str]) -> None:
 def validate_docs(errors: list[str]) -> None:
     docs = ROOT / "docs"
     config = (ROOT / "mkdocs.yml").read_text(encoding="utf-8") if (ROOT / "mkdocs.yml").exists() else ""
+    default_docs = {path.name for path in docs.glob("*.md") if not path.name.endswith(".zh.md")}
+    localized_docs = {path.name.removesuffix(".zh.md") + ".md" for path in docs.glob("*.zh.md")}
+    for missing in sorted(default_docs - localized_docs):
+        errors.append(f"docs i18n: missing Traditional Chinese counterpart for {missing}")
+    for orphan in sorted(localized_docs - default_docs):
+        errors.append(f"docs i18n: localized page has no English source {orphan}")
     for nav_path in re.findall(r"(?m)^\s+- [^:\n]+: ([a-z0-9][a-z0-9./-]*\.md)$", config):
         if not (docs / nav_path).exists():
             errors.append(f"mkdocs nav: missing docs/{nav_path}")
