@@ -1,0 +1,23 @@
+id: boundary
+name: Boundary
+version: 0.1.0
+status: draft
+category: systems-thinking
+author: FarmerSamuel
+requires:
+  - ValidatedProblem
+  - ConstraintSet
+  - Stakeholders
+produces:
+  - SystemBoundary
+  - InScopeElements
+  - OutOfScopeElements
+  - BoundaryAssumptions
+dependencies:
+  - right-problem
+  - constraints
+nextSkill:
+  - id: complexity
+    condition: The current output satisfies the registered transition and dependency contracts.
+  - id: gap-analysis
+    condition: The current output satisfies the registered transition and dependency contracts.

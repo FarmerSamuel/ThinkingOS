@@ -34,7 +34,7 @@ skills:
     displayName: Constraints
     category: problem-framing
     version: 0.1.0
-    status: planned
+    status: draft
     dependencies:
       - right-problem
     produces:
@@ -49,7 +49,7 @@ skills:
     displayName: Gap Analysis
     category: analysis
     version: 0.1.0
-    status: planned
+    status: draft
     dependencies:
       - right-problem
       - constraints
@@ -82,7 +82,7 @@ skills:
     displayName: Heuristic
     category: decision-making
     version: 0.1.0
-    status: planned
+    status: draft
     dependencies:
       - right-problem
       - constraints
@@ -166,7 +166,7 @@ skills:
     displayName: Boundary
     category: systems-thinking
     version: 0.1.0
-    status: planned
+    status: draft
     dependencies:
       - right-problem
       - constraints

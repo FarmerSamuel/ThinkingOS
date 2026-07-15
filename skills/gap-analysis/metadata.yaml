@@ -1,0 +1,22 @@
+id: gap-analysis
+name: Gap Analysis
+version: 0.1.0
+status: draft
+category: analysis
+author: FarmerSamuel
+requires:
+  - InitialState
+  - TargetState
+  - ConstraintSet
+produces:
+  - GapSet
+  - PrioritizedGaps
+  - TransitionNeeds
+dependencies:
+  - right-problem
+  - constraints
+nextSkill:
+  - id: break-it-down
+    condition: The current output satisfies the registered transition and dependency contracts.
+  - id: heuristic
+    condition: The current output satisfies the registered transition and dependency contracts.

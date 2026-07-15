@@ -1,0 +1,21 @@
+id: constraints
+name: Constraints
+version: 0.1.0
+status: draft
+category: problem-framing
+author: FarmerSamuel
+requires:
+  - ValidatedProblem
+produces:
+  - ConstraintSet
+  - ConstraintClassification
+  - FeasibleSpace
+dependencies:
+  - right-problem
+nextSkill:
+  - id: gap-analysis
+    condition: The current output satisfies the registered transition and dependency contracts.
+  - id: heuristic
+    condition: The current output satisfies the registered transition and dependency contracts.
+  - id: boundary
+    condition: The current output satisfies the registered transition and dependency contracts.

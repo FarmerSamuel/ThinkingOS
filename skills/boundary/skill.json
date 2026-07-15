@@ -1,0 +1,321 @@
+{
+  "name": "boundary",
+  "version": "0.1.0",
+  "description": "Define what is inside, outside, and crossing a system boundary for a validated problem.",
+  "purpose": {
+    "problem": "Define what is inside, outside, and crossing a system boundary for a validated problem.",
+    "outcome": "Produce validated SystemBoundary, InScopeElements, OutOfScopeElements, BoundaryAssumptions.",
+    "inScope": [
+      "SystemBoundary",
+      "InScopeElement",
+      "OutOfScopeElement",
+      "Interface",
+      "Stakeholder"
+    ],
+    "outOfScope": [
+      "Provider-specific execution",
+      "Unvalidated solution generation"
+    ]
+  },
+  "thinkingHabit": "Make scope choices and boundary assumptions explicit before reasoning about a system.",
+  "thinkingElements": [
+    "SystemBoundary",
+    "InScopeElement",
+    "OutOfScopeElement",
+    "Interface",
+    "Stakeholder"
+  ],
+  "requiredInputs": [
+    {
+      "name": "validatedProblem",
+      "description": "The validatedproblem required by Boundary.",
+      "required": true,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    },
+    {
+      "name": "constraintSet",
+      "description": "The constraintset required by Boundary.",
+      "required": true,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    },
+    {
+      "name": "stakeholders",
+      "description": "The stakeholders required by Boundary.",
+      "required": false,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    }
+  ],
+  "validation": [
+    {
+      "id": "BOUNDARY-V01",
+      "description": "Required inputs must be present, relevant, and mutually consistent.",
+      "condition": "required inputs pass the shared validation framework",
+      "onFailure": "Return needs clarification with one prioritized question."
+    },
+    {
+      "id": "BOUNDARY-V02",
+      "description": "Material ambiguity and missing information must be surfaced.",
+      "condition": "no blocking unknown is hidden",
+      "onFailure": "Record the gap and stop dependent logic."
+    },
+    {
+      "id": "BOUNDARY-V03",
+      "description": "Inputs must satisfy registered dependency semantics.",
+      "condition": "dependency outputs or validated equivalents are available",
+      "onFailure": "Recommend the missing prerequisite."
+    }
+  ],
+  "logic": [
+    {
+      "id": "BOUNDARY-L01",
+      "description": "Identify and normalize the skill's thinking elements: SystemBoundary, InScopeElement, OutOfScopeElement, Interface, Stakeholder.",
+      "condition": "each required element has evidence or explicit unknown status",
+      "onFailure": "Request or record the missing element."
+    },
+    {
+      "id": "BOUNDARY-L02",
+      "description": "Apply the Boundary relationship rules without introducing platform assumptions.",
+      "condition": "relationships are explicit and testable",
+      "onFailure": "Record the unsupported relationship."
+    },
+    {
+      "id": "BOUNDARY-L03",
+      "description": "Test contradictions, alternatives, and failure conditions.",
+      "condition": "material alternatives are considered",
+      "onFailure": "Reduce confidence and disclose the limitation."
+    },
+    {
+      "id": "BOUNDARY-L04",
+      "description": "Generate a schema-compatible evaluation and next-step recommendation.",
+      "condition": "scores, reasoning, and transition are consistent",
+      "onFailure": "Return incomplete rather than guessing."
+    }
+  ],
+  "evaluation": {
+    "criteria": [
+      {
+        "name": "ScopeClarity Score",
+        "description": "Quality of scopeclarity in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "InterfaceCoverage Score",
+        "description": "Quality of interfacecoverage in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "StakeholderFit Score",
+        "description": "Quality of stakeholderfit in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "AssumptionTransparency Score",
+        "description": "Quality of assumptiontransparency in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "Usefulness Score",
+        "description": "Quality of usefulness in the current reasoning.",
+        "weight": 0.2
+      }
+    ],
+    "scoringScale": {
+      "minimum": 0,
+      "maximum": 4,
+      "labels": {
+        "0": "unusable",
+        "1": "weak",
+        "2": "partial",
+        "3": "sufficient",
+        "4": "robust"
+      }
+    }
+  },
+  "conversationRules": [
+    "Ask one material question at a time.",
+    "Separate facts, assumptions, and interpretations.",
+    "Explain why a clarification affects the evaluation.",
+    "Stop when inputs are sufficient."
+  ],
+  "output": {
+    "schema": "../../schemas/output.schema.json",
+    "extensions": {
+      "scoreReporting": {
+        "overall": "evaluation.score",
+        "dimensions": "reasoning"
+      }
+    }
+  },
+  "neverRules": [
+    "Never fabricate missing information.",
+    "Never bypass a blocking validation failure.",
+    "Never hide uncertainty behind a score.",
+    "Never invoke an unsatisfied downstream skill."
+  ],
+  "nextSkill": [
+    {
+      "skill": "complexity",
+      "condition": "The current output satisfies the registered transition contract.",
+      "reason": "Continue reasoning with Complexity."
+    },
+    {
+      "skill": "gap-analysis",
+      "condition": "The current output satisfies the registered transition contract.",
+      "reason": "Continue reasoning with GapAnalysis."
+    }
+  ],
+  "examples": [
+    {
+      "name": "Valid case",
+      "input": {
+        "validatedProblem": "Validated input",
+        "constraintSet": "Relevant context"
+      },
+      "expectedOutput": {
+        "status": "sufficient"
+      }
+    },
+    {
+      "name": "Incomplete case",
+      "input": {
+        "validatedProblem": "Ambiguous input"
+      },
+      "expectedOutput": {
+        "status": "incomplete",
+        "questionRequired": true
+      }
+    }
+  ],
+  "references": [
+    {
+      "title": "ThinkingOS Skill Specification",
+      "citation": "../../docs/skill-specification.md"
+    },
+    {
+      "title": "ThinkingOS Reasoning Engine",
+      "citation": "../../core/engine.md"
+    }
+  ],
+  "tests": [
+    {
+      "name": "boundary-T01",
+      "input": {
+        "validatedProblem": "valid input"
+      },
+      "expected": {
+        "check": "successful evaluation"
+      }
+    },
+    {
+      "name": "boundary-T02",
+      "input": {
+        "validatedProblem": "missing required input"
+      },
+      "expected": {
+        "check": "clarification"
+      }
+    },
+    {
+      "name": "boundary-T03",
+      "input": {
+        "validatedProblem": "ambiguous input"
+      },
+      "expected": {
+        "check": "ambiguity detected"
+      }
+    },
+    {
+      "name": "boundary-T04",
+      "input": {
+        "validatedProblem": "contradictory input"
+      },
+      "expected": {
+        "check": "contradiction recorded"
+      }
+    },
+    {
+      "name": "boundary-T05",
+      "input": {
+        "validatedProblem": "unsupported assumption"
+      },
+      "expected": {
+        "check": "assumption disclosed"
+      }
+    },
+    {
+      "name": "boundary-T06",
+      "input": {
+        "validatedProblem": "dependency missing"
+      },
+      "expected": {
+        "check": "prerequisite recommended"
+      }
+    },
+    {
+      "name": "boundary-T07",
+      "input": {
+        "validatedProblem": "alternative explanation"
+      },
+      "expected": {
+        "check": "alternative tested"
+      }
+    },
+    {
+      "name": "boundary-T08",
+      "input": {
+        "validatedProblem": "boundary condition"
+      },
+      "expected": {
+        "check": "boundary handled"
+      }
+    },
+    {
+      "name": "boundary-T09",
+      "input": {
+        "validatedProblem": "low evidence"
+      },
+      "expected": {
+        "check": "confidence reduced"
+      }
+    },
+    {
+      "name": "boundary-T10",
+      "input": {
+        "validatedProblem": "complete input"
+      },
+      "expected": {
+        "check": "output schema conformance"
+      }
+    }
+  ],
+  "extensions": {
+    "goldenSkillCompatible": true,
+    "documentation": {
+      "workflow": "workflow.md",
+      "validation": "validation.md",
+      "evaluation": "evaluation.md",
+      "rubric": "rubric.md",
+      "examples": "examples.md",
+      "tests": "tests.md",
+      "references": "references.md"
+    }
+  }
+}

@@ -1,0 +1,321 @@
+{
+  "name": "gap-analysis",
+  "version": "0.1.0",
+  "description": "Compare validated current and target states and prioritize the gaps that prevent transition.",
+  "purpose": {
+    "problem": "Compare validated current and target states and prioritize the gaps that prevent transition.",
+    "outcome": "Produce validated GapSet, PrioritizedGaps, TransitionNeeds.",
+    "inScope": [
+      "InitialState",
+      "TargetState",
+      "Gap",
+      "Constraint",
+      "TransitionNeed"
+    ],
+    "outOfScope": [
+      "Provider-specific execution",
+      "Unvalidated solution generation"
+    ]
+  },
+  "thinkingHabit": "Define the difference between current and desired states before selecting interventions.",
+  "thinkingElements": [
+    "InitialState",
+    "TargetState",
+    "Gap",
+    "Constraint",
+    "TransitionNeed"
+  ],
+  "requiredInputs": [
+    {
+      "name": "initialState",
+      "description": "The initialstate required by Gap Analysis.",
+      "required": true,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    },
+    {
+      "name": "targetState",
+      "description": "The targetstate required by Gap Analysis.",
+      "required": true,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    },
+    {
+      "name": "constraintSet",
+      "description": "The constraintset required by Gap Analysis.",
+      "required": false,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    }
+  ],
+  "validation": [
+    {
+      "id": "GAPANALYSIS-V01",
+      "description": "Required inputs must be present, relevant, and mutually consistent.",
+      "condition": "required inputs pass the shared validation framework",
+      "onFailure": "Return needs clarification with one prioritized question."
+    },
+    {
+      "id": "GAPANALYSIS-V02",
+      "description": "Material ambiguity and missing information must be surfaced.",
+      "condition": "no blocking unknown is hidden",
+      "onFailure": "Record the gap and stop dependent logic."
+    },
+    {
+      "id": "GAPANALYSIS-V03",
+      "description": "Inputs must satisfy registered dependency semantics.",
+      "condition": "dependency outputs or validated equivalents are available",
+      "onFailure": "Recommend the missing prerequisite."
+    }
+  ],
+  "logic": [
+    {
+      "id": "GAPANALYSIS-L01",
+      "description": "Identify and normalize the skill's thinking elements: InitialState, TargetState, Gap, Constraint, TransitionNeed.",
+      "condition": "each required element has evidence or explicit unknown status",
+      "onFailure": "Request or record the missing element."
+    },
+    {
+      "id": "GAPANALYSIS-L02",
+      "description": "Apply the Gap Analysis relationship rules without introducing platform assumptions.",
+      "condition": "relationships are explicit and testable",
+      "onFailure": "Record the unsupported relationship."
+    },
+    {
+      "id": "GAPANALYSIS-L03",
+      "description": "Test contradictions, alternatives, and failure conditions.",
+      "condition": "material alternatives are considered",
+      "onFailure": "Reduce confidence and disclose the limitation."
+    },
+    {
+      "id": "GAPANALYSIS-L04",
+      "description": "Generate a schema-compatible evaluation and next-step recommendation.",
+      "condition": "scores, reasoning, and transition are consistent",
+      "onFailure": "Return incomplete rather than guessing."
+    }
+  ],
+  "evaluation": {
+    "criteria": [
+      {
+        "name": "StateClarity Score",
+        "description": "Quality of stateclarity in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "GapValidity Score",
+        "description": "Quality of gapvalidity in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "Prioritization Score",
+        "description": "Quality of prioritization in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "ConstraintFit Score",
+        "description": "Quality of constraintfit in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "Actionability Score",
+        "description": "Quality of actionability in the current reasoning.",
+        "weight": 0.2
+      }
+    ],
+    "scoringScale": {
+      "minimum": 0,
+      "maximum": 4,
+      "labels": {
+        "0": "unusable",
+        "1": "weak",
+        "2": "partial",
+        "3": "sufficient",
+        "4": "robust"
+      }
+    }
+  },
+  "conversationRules": [
+    "Ask one material question at a time.",
+    "Separate facts, assumptions, and interpretations.",
+    "Explain why a clarification affects the evaluation.",
+    "Stop when inputs are sufficient."
+  ],
+  "output": {
+    "schema": "../../schemas/output.schema.json",
+    "extensions": {
+      "scoreReporting": {
+        "overall": "evaluation.score",
+        "dimensions": "reasoning"
+      }
+    }
+  },
+  "neverRules": [
+    "Never fabricate missing information.",
+    "Never bypass a blocking validation failure.",
+    "Never hide uncertainty behind a score.",
+    "Never invoke an unsatisfied downstream skill."
+  ],
+  "nextSkill": [
+    {
+      "skill": "break-it-down",
+      "condition": "The current output satisfies the registered transition contract.",
+      "reason": "Continue reasoning with BreakItDown."
+    },
+    {
+      "skill": "heuristic",
+      "condition": "The current output satisfies the registered transition contract.",
+      "reason": "Continue reasoning with Heuristic."
+    }
+  ],
+  "examples": [
+    {
+      "name": "Valid case",
+      "input": {
+        "initialState": "Validated input",
+        "targetState": "Relevant context"
+      },
+      "expectedOutput": {
+        "status": "sufficient"
+      }
+    },
+    {
+      "name": "Incomplete case",
+      "input": {
+        "initialState": "Ambiguous input"
+      },
+      "expectedOutput": {
+        "status": "incomplete",
+        "questionRequired": true
+      }
+    }
+  ],
+  "references": [
+    {
+      "title": "ThinkingOS Skill Specification",
+      "citation": "../../docs/skill-specification.md"
+    },
+    {
+      "title": "ThinkingOS Reasoning Engine",
+      "citation": "../../core/engine.md"
+    }
+  ],
+  "tests": [
+    {
+      "name": "gap-analysis-T01",
+      "input": {
+        "initialState": "valid input"
+      },
+      "expected": {
+        "check": "successful evaluation"
+      }
+    },
+    {
+      "name": "gap-analysis-T02",
+      "input": {
+        "initialState": "missing required input"
+      },
+      "expected": {
+        "check": "clarification"
+      }
+    },
+    {
+      "name": "gap-analysis-T03",
+      "input": {
+        "initialState": "ambiguous input"
+      },
+      "expected": {
+        "check": "ambiguity detected"
+      }
+    },
+    {
+      "name": "gap-analysis-T04",
+      "input": {
+        "initialState": "contradictory input"
+      },
+      "expected": {
+        "check": "contradiction recorded"
+      }
+    },
+    {
+      "name": "gap-analysis-T05",
+      "input": {
+        "initialState": "unsupported assumption"
+      },
+      "expected": {
+        "check": "assumption disclosed"
+      }
+    },
+    {
+      "name": "gap-analysis-T06",
+      "input": {
+        "initialState": "dependency missing"
+      },
+      "expected": {
+        "check": "prerequisite recommended"
+      }
+    },
+    {
+      "name": "gap-analysis-T07",
+      "input": {
+        "initialState": "alternative explanation"
+      },
+      "expected": {
+        "check": "alternative tested"
+      }
+    },
+    {
+      "name": "gap-analysis-T08",
+      "input": {
+        "initialState": "boundary condition"
+      },
+      "expected": {
+        "check": "boundary handled"
+      }
+    },
+    {
+      "name": "gap-analysis-T09",
+      "input": {
+        "initialState": "low evidence"
+      },
+      "expected": {
+        "check": "confidence reduced"
+      }
+    },
+    {
+      "name": "gap-analysis-T10",
+      "input": {
+        "initialState": "complete input"
+      },
+      "expected": {
+        "check": "output schema conformance"
+      }
+    }
+  ],
+  "extensions": {
+    "goldenSkillCompatible": true,
+    "documentation": {
+      "workflow": "workflow.md",
+      "validation": "validation.md",
+      "evaluation": "evaluation.md",
+      "rubric": "rubric.md",
+      "examples": "examples.md",
+      "tests": "tests.md",
+      "references": "references.md"
+    }
+  }
+}

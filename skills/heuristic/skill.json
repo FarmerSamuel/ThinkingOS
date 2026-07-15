@@ -1,0 +1,321 @@
+{
+  "name": "heuristic",
+  "version": "0.1.0",
+  "description": "Construct a bounded decision shortcut with explicit applicability and failure conditions.",
+  "purpose": {
+    "problem": "Construct a bounded decision shortcut with explicit applicability and failure conditions.",
+    "outcome": "Produce validated DecisionHeuristic, ApplicabilityConditions, FailureConditions.",
+    "inScope": [
+      "DecisionContext",
+      "Heuristic",
+      "ApplicabilityCondition",
+      "FailureCondition",
+      "TradeOff"
+    ],
+    "outOfScope": [
+      "Provider-specific execution",
+      "Unvalidated solution generation"
+    ]
+  },
+  "thinkingHabit": "Use shortcuts only when their boundaries and costs are visible.",
+  "thinkingElements": [
+    "DecisionContext",
+    "Heuristic",
+    "ApplicabilityCondition",
+    "FailureCondition",
+    "TradeOff"
+  ],
+  "requiredInputs": [
+    {
+      "name": "validatedProblem",
+      "description": "The validatedproblem required by Heuristic.",
+      "required": true,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    },
+    {
+      "name": "constraintSet",
+      "description": "The constraintset required by Heuristic.",
+      "required": true,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    },
+    {
+      "name": "decisionContext",
+      "description": "The decisioncontext required by Heuristic.",
+      "required": false,
+      "schema": {
+        "type": [
+          "string",
+          "object",
+          "array"
+        ]
+      }
+    }
+  ],
+  "validation": [
+    {
+      "id": "HEURISTIC-V01",
+      "description": "Required inputs must be present, relevant, and mutually consistent.",
+      "condition": "required inputs pass the shared validation framework",
+      "onFailure": "Return needs clarification with one prioritized question."
+    },
+    {
+      "id": "HEURISTIC-V02",
+      "description": "Material ambiguity and missing information must be surfaced.",
+      "condition": "no blocking unknown is hidden",
+      "onFailure": "Record the gap and stop dependent logic."
+    },
+    {
+      "id": "HEURISTIC-V03",
+      "description": "Inputs must satisfy registered dependency semantics.",
+      "condition": "dependency outputs or validated equivalents are available",
+      "onFailure": "Recommend the missing prerequisite."
+    }
+  ],
+  "logic": [
+    {
+      "id": "HEURISTIC-L01",
+      "description": "Identify and normalize the skill's thinking elements: DecisionContext, Heuristic, ApplicabilityCondition, FailureCondition, TradeOff.",
+      "condition": "each required element has evidence or explicit unknown status",
+      "onFailure": "Request or record the missing element."
+    },
+    {
+      "id": "HEURISTIC-L02",
+      "description": "Apply the Heuristic relationship rules without introducing platform assumptions.",
+      "condition": "relationships are explicit and testable",
+      "onFailure": "Record the unsupported relationship."
+    },
+    {
+      "id": "HEURISTIC-L03",
+      "description": "Test contradictions, alternatives, and failure conditions.",
+      "condition": "material alternatives are considered",
+      "onFailure": "Reduce confidence and disclose the limitation."
+    },
+    {
+      "id": "HEURISTIC-L04",
+      "description": "Generate a schema-compatible evaluation and next-step recommendation.",
+      "condition": "scores, reasoning, and transition are consistent",
+      "onFailure": "Return incomplete rather than guessing."
+    }
+  ],
+  "evaluation": {
+    "criteria": [
+      {
+        "name": "Simplicity Score",
+        "description": "Quality of simplicity in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "BoundaryClarity Score",
+        "description": "Quality of boundaryclarity in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "Reliability Score",
+        "description": "Quality of reliability in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "CostOfError Score",
+        "description": "Quality of costoferror in the current reasoning.",
+        "weight": 0.2
+      },
+      {
+        "name": "Testability Score",
+        "description": "Quality of testability in the current reasoning.",
+        "weight": 0.2
+      }
+    ],
+    "scoringScale": {
+      "minimum": 0,
+      "maximum": 4,
+      "labels": {
+        "0": "unusable",
+        "1": "weak",
+        "2": "partial",
+        "3": "sufficient",
+        "4": "robust"
+      }
+    }
+  },
+  "conversationRules": [
+    "Ask one material question at a time.",
+    "Separate facts, assumptions, and interpretations.",
+    "Explain why a clarification affects the evaluation.",
+    "Stop when inputs are sufficient."
+  ],
+  "output": {
+    "schema": "../../schemas/output.schema.json",
+    "extensions": {
+      "scoreReporting": {
+        "overall": "evaluation.score",
+        "dimensions": "reasoning"
+      }
+    }
+  },
+  "neverRules": [
+    "Never fabricate missing information.",
+    "Never bypass a blocking validation failure.",
+    "Never hide uncertainty behind a score.",
+    "Never invoke an unsatisfied downstream skill."
+  ],
+  "nextSkill": [
+    {
+      "skill": "gap-analysis",
+      "condition": "The current output satisfies the registered transition contract.",
+      "reason": "Continue reasoning with GapAnalysis."
+    },
+    {
+      "skill": "complexity",
+      "condition": "The current output satisfies the registered transition contract.",
+      "reason": "Continue reasoning with Complexity."
+    }
+  ],
+  "examples": [
+    {
+      "name": "Valid case",
+      "input": {
+        "validatedProblem": "Validated input",
+        "constraintSet": "Relevant context"
+      },
+      "expectedOutput": {
+        "status": "sufficient"
+      }
+    },
+    {
+      "name": "Incomplete case",
+      "input": {
+        "validatedProblem": "Ambiguous input"
+      },
+      "expectedOutput": {
+        "status": "incomplete",
+        "questionRequired": true
+      }
+    }
+  ],
+  "references": [
+    {
+      "title": "ThinkingOS Skill Specification",
+      "citation": "../../docs/skill-specification.md"
+    },
+    {
+      "title": "ThinkingOS Reasoning Engine",
+      "citation": "../../core/engine.md"
+    }
+  ],
+  "tests": [
+    {
+      "name": "heuristic-T01",
+      "input": {
+        "validatedProblem": "valid input"
+      },
+      "expected": {
+        "check": "successful evaluation"
+      }
+    },
+    {
+      "name": "heuristic-T02",
+      "input": {
+        "validatedProblem": "missing required input"
+      },
+      "expected": {
+        "check": "clarification"
+      }
+    },
+    {
+      "name": "heuristic-T03",
+      "input": {
+        "validatedProblem": "ambiguous input"
+      },
+      "expected": {
+        "check": "ambiguity detected"
+      }
+    },
+    {
+      "name": "heuristic-T04",
+      "input": {
+        "validatedProblem": "contradictory input"
+      },
+      "expected": {
+        "check": "contradiction recorded"
+      }
+    },
+    {
+      "name": "heuristic-T05",
+      "input": {
+        "validatedProblem": "unsupported assumption"
+      },
+      "expected": {
+        "check": "assumption disclosed"
+      }
+    },
+    {
+      "name": "heuristic-T06",
+      "input": {
+        "validatedProblem": "dependency missing"
+      },
+      "expected": {
+        "check": "prerequisite recommended"
+      }
+    },
+    {
+      "name": "heuristic-T07",
+      "input": {
+        "validatedProblem": "alternative explanation"
+      },
+      "expected": {
+        "check": "alternative tested"
+      }
+    },
+    {
+      "name": "heuristic-T08",
+      "input": {
+        "validatedProblem": "boundary condition"
+      },
+      "expected": {
+        "check": "boundary handled"
+      }
+    },
+    {
+      "name": "heuristic-T09",
+      "input": {
+        "validatedProblem": "low evidence"
+      },
+      "expected": {
+        "check": "confidence reduced"
+      }
+    },
+    {
+      "name": "heuristic-T10",
+      "input": {
+        "validatedProblem": "complete input"
+      },
+      "expected": {
+        "check": "output schema conformance"
+      }
+    }
+  ],
+  "extensions": {
+    "goldenSkillCompatible": true,
+    "documentation": {
+      "workflow": "workflow.md",
+      "validation": "validation.md",
+      "evaluation": "evaluation.md",
+      "rubric": "rubric.md",
+      "examples": "examples.md",
+      "tests": "tests.md",
+      "references": "references.md"
+    }
+  }
+}

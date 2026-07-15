@@ -1,0 +1,22 @@
+id: heuristic
+name: Heuristic
+version: 0.1.0
+status: draft
+category: decision-making
+author: FarmerSamuel
+requires:
+  - ValidatedProblem
+  - ConstraintSet
+  - DecisionContext
+produces:
+  - DecisionHeuristic
+  - ApplicabilityConditions
+  - FailureConditions
+dependencies:
+  - right-problem
+  - constraints
+nextSkill:
+  - id: gap-analysis
+    condition: The current output satisfies the registered transition and dependency contracts.
+  - id: complexity
+    condition: The current output satisfies the registered transition and dependency contracts.
