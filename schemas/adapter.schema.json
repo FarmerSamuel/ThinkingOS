@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thinkingos.dev/schemas/adapter.schema.json",
+  "title": "ThinkingOS Adapter Request",
+  "type": "object",
+  "required": ["skillId", "instructions", "inputs", "conversationState"],
+  "properties": {
+    "skillId": {"type": "string", "minLength": 1},
+    "instructions": {"type": "string", "minLength": 1},
+    "inputs": {"type": "object"},
+    "conversationState": {"type": "object"},
+    "outputSchema": {"type": "object"}
+  },
+  "additionalProperties": false
+}
