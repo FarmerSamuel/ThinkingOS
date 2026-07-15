@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thinkingos.dev/schemas/skill.schema.json",
+  "title": "ThinkingOS Skill",
+  "description": "The platform-independent definition of a reusable ThinkingOS Skill.",
+  "type": "object",
+  "required": [
+    "name",
+    "version",
+    "description",
+    "purpose",
+    "thinkingHabit",
+    "thinkingElements",
+    "requiredInputs",
+    "validation",
+    "logic",
+    "evaluation",
+    "conversationRules",
+    "output",
+    "neverRules",
+    "nextSkill",
+    "examples",
+    "references",
+    "tests"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "purpose": {
+      "type": "object",
+      "required": ["problem", "outcome", "inScope", "outOfScope"],
+      "properties": {
+        "problem": { "type": "string", "minLength": 1 },
+        "outcome": { "type": "string", "minLength": 1 },
+        "inScope": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "outOfScope": { "$ref": "#/$defs/nonEmptyStringArray" }
+      },
+      "additionalProperties": false
+    },
+    "thinkingHabit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "thinkingElements": {
+      "$ref": "#/$defs/nonEmptyStringArray"
+    },
+    "requiredInputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/inputDefinition" }
+    },
+    "validation": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/rule" }
+    },
+    "logic": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/rule" }
+    },
+    "evaluation": {
+      "type": "object",
+      "required": ["criteria", "scoringScale"],
+      "properties": {
+        "criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/criterion" }
+        },
+        "scoringScale": {
+          "type": "object",
+          "required": ["minimum", "maximum"],
+          "properties": {
+            "minimum": { "type": "number" },
+            "maximum": { "type": "number" },
+            "labels": {
+              "type": "object",
+              "additionalProperties": { "type": "string", "minLength": 1 }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "conversationRules": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "output": {
+      "type": "object",
+      "required": ["schema"],
+      "properties": {
+        "schema": { "type": "string", "minLength": 1 },
+        "extensions": { "type": "object" }
+      },
+      "additionalProperties": false
+    },
+    "neverRules": {
+      "$ref": "#/$defs/nonEmptyStringArray"
+    },
+    "nextSkill": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["skill", "condition", "reason"],
+        "properties": {
+          "skill": { "type": "string", "minLength": 1 },
+          "condition": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "examples": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "input", "expectedOutput"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "input": {},
+          "expectedOutput": {}
+        },
+        "additionalProperties": false
+      }
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title"],
+        "properties": {
+          "title": { "type": "string", "minLength": 1 },
+          "url": { "type": "string", "format": "uri" },
+          "citation": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "tests": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "input", "expected"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "input": {},
+          "expected": {}
+        },
+        "additionalProperties": false
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Namespaced, platform-neutral additions to the base skill contract."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "inputDefinition": {
+      "type": "object",
+      "required": ["name", "description", "required"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "required": { "type": "boolean" },
+        "schema": { "type": "object" }
+      },
+      "additionalProperties": false
+    },
+    "rule": {
+      "type": "object",
+      "required": ["id", "description"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "condition": { "type": "string", "minLength": 1 },
+        "onFailure": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "criterion": {
+      "type": "object",
+      "required": ["name", "description"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "weight": { "type": "number", "minimum": 0 }
+      },
+      "additionalProperties": false
+    }
+  }
+}

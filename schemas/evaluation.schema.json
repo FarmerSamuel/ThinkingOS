@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thinkingos.dev/schemas/evaluation.schema.json",
+  "title": "ThinkingOS Evaluation",
+  "description": "A reusable, platform-independent evaluation of thinking quality.",
+  "type": "object",
+  "required": [
+    "score",
+    "strengths",
+    "weaknesses",
+    "missingInformation",
+    "logicalIssues",
+    "recommendation",
+    "confidence"
+  ],
+  "properties": {
+    "score": {
+      "description": "An overall score using the scale declared by the evaluating skill.",
+      "type": "number"
+    },
+    "strengths": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "weaknesses": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "missingInformation": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "logicalIssues": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "recommendation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "confidence": {
+      "$ref": "#/$defs/confidence"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "confidence": {
+      "oneOf": [
+        { "type": "string", "enum": ["low", "medium", "high"] },
+        { "type": "number", "minimum": 0, "maximum": 1 }
+      ]
+    }
+  }
+}
