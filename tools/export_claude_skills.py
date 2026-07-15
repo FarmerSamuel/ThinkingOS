@@ -468,7 +468,7 @@ def existing_files() -> dict[str, str]:
     if not OUTPUT_ROOT.exists():
         return {}
     return {
-        str(path.relative_to(OUTPUT_ROOT)): path.read_text(encoding="utf-8")
+        path.relative_to(OUTPUT_ROOT).as_posix(): path.read_text(encoding="utf-8")
         for path in sorted(OUTPUT_ROOT.rglob("SKILL.md"))
     }
 
