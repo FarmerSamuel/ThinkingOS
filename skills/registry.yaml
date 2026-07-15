@@ -4,7 +4,7 @@ skills:
     displayName: Right Problem
     category: problem-framing
     version: 0.1.0
-    status: planned
+    status: draft
     dependencies: []
     produces:
       - ValidatedProblem

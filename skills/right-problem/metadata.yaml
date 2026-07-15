@@ -1,0 +1,21 @@
+id: right-problem
+name: Right Problem
+version: 0.1.0
+status: draft
+category: problem-framing
+author: FarmerSamuel
+requires:
+  - ProblemStatement
+  - Goal
+produces:
+  - ValidatedProblem
+  - ClarifiedGoal
+  - ProblemAssumptions
+dependencies: []
+nextSkill:
+  - id: constraints
+    condition: The problem is valid and governing constraints require explicit analysis.
+  - id: break-it-down
+    condition: The problem is valid but too broad or complex for direct analysis.
+  - id: gap-analysis
+    condition: The problem is valid and both initial and target states are sufficiently defined.

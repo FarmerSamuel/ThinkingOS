@@ -1,0 +1,348 @@
+{
+  "name": "right-problem",
+  "version": "0.1.0",
+  "description": "Validates whether a stated problem is the problem that should be solved before solution generation begins.",
+  "purpose": {
+    "problem": "People often begin solving an ambiguous, symptom-led, or solution-led problem before validating the goal, obstacle, constraints, and supporting evidence.",
+    "outcome": "A clear, bounded, evidence-aware problem frame with an explicit validity status and next thinking step.",
+    "inScope": [
+      "Clarifying the desired outcome",
+      "Separating goals, obstacles, constraints, assumptions, and evidence",
+      "Testing whether the obstacle plausibly explains the goal gap",
+      "Identifying missing information and alternative explanations",
+      "Evaluating problem-frame readiness"
+    ],
+    "outOfScope": [
+      "Generating solutions",
+      "Building implementation plans",
+      "Diagnosing people or organizations",
+      "Replacing domain, legal, medical, or financial expertise"
+    ]
+  },
+  "thinkingHabit": "Validate the problem frame before generating or selecting solutions.",
+  "thinkingElements": [
+    "Goal",
+    "Obstacle",
+    "Constraint",
+    "Assumption",
+    "Evidence",
+    "ProblemStatement"
+  ],
+  "requiredInputs": [
+    {
+      "name": "problemStatement",
+      "description": "The problem as currently understood by the user.",
+      "required": true,
+      "schema": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    {
+      "name": "goal",
+      "description": "The desired outcome that makes the problem worth solving.",
+      "required": true,
+      "schema": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    {
+      "name": "context",
+      "description": "Relevant environment, stakeholders, evidence, history, and boundaries.",
+      "required": false,
+      "schema": {
+        "type": ["object", "string", "null"]
+      }
+    },
+    {
+      "name": "knownConstraints",
+      "description": "Known boundaries governing the feasible problem space.",
+      "required": false,
+      "schema": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    }
+  ],
+  "validation": [
+    {
+      "id": "RP-V01",
+      "description": "A non-empty problem statement must be provided.",
+      "condition": "problemStatement is present and meaningful",
+      "onFailure": "Return needs clarification and request the observed undesirable condition or decision difficulty."
+    },
+    {
+      "id": "RP-V02",
+      "description": "A desired outcome must be distinguishable from an activity or preselected solution.",
+      "condition": "goal describes an outcome and is distinct from problemStatement",
+      "onFailure": "Return needs clarification and ask what outcome should improve."
+    },
+    {
+      "id": "RP-V03",
+      "description": "Materially ambiguous scope, stakeholder, timeframe, or terminology must be clarified.",
+      "condition": "no unresolved ambiguity can materially change the evaluation",
+      "onFailure": "Ask the single highest-impact clarification question."
+    },
+    {
+      "id": "RP-V04",
+      "description": "Goals, obstacles, constraints, assumptions, and evidence must be internally consistent.",
+      "condition": "no unresolved contradiction blocks evaluation",
+      "onFailure": "Record the contradiction and classify the frame as incomplete or invalid."
+    }
+  ],
+  "logic": [
+    {
+      "id": "RP-L01",
+      "description": "Separate the desired outcome from the current problem statement and any proposed solution.",
+      "condition": "goal, problem, and solution claims are classified",
+      "onFailure": "Do not proceed to solution generation."
+    },
+    {
+      "id": "RP-L02",
+      "description": "Identify the obstacle claimed to explain the gap between the current condition and goal.",
+      "condition": "at least one obstacle candidate is explicit",
+      "onFailure": "Request the observed factor preventing the goal."
+    },
+    {
+      "id": "RP-L03",
+      "description": "Test the obstacle against evidence, competing explanations, and symptom-versus-cause confusion.",
+      "condition": "the causal relationship is supported or its uncertainty is disclosed",
+      "onFailure": "Lower Logic Score and request discriminating evidence."
+    },
+    {
+      "id": "RP-L04",
+      "description": "Separate governing constraints from obstacles and unsupported assumptions.",
+      "condition": "material boundaries are classified",
+      "onFailure": "Lower Constraint Score and disclose the classification gap."
+    },
+    {
+      "id": "RP-L05",
+      "description": "Classify the complete frame as Valid, Invalid, or Incomplete using blocking conditions and rubric evidence.",
+      "condition": "classification and scores are mutually consistent",
+      "onFailure": "Return Incomplete with the unresolved inconsistency."
+    }
+  ],
+  "evaluation": {
+    "criteria": [
+      {
+        "name": "Goal Score",
+        "description": "Clarity, relevance, scope, and observability of the desired outcome.",
+        "weight": 0.25
+      },
+      {
+        "name": "Obstacle Score",
+        "description": "Specificity, evidence, and causal plausibility of the identified obstacle.",
+        "weight": 0.25
+      },
+      {
+        "name": "Constraint Score",
+        "description": "Completeness and correct classification of material boundaries.",
+        "weight": 0.2
+      },
+      {
+        "name": "Logic Score",
+        "description": "Consistency and evidential support connecting the goal, obstacle, constraints, and conclusion.",
+        "weight": 0.3
+      },
+      {
+        "name": "Overall Thinking Score",
+        "description": "Problem-frame readiness after applying blocking safeguards."
+      }
+    ],
+    "scoringScale": {
+      "minimum": 0,
+      "maximum": 4,
+      "labels": {
+        "0": "absent-or-invalid",
+        "1": "materially-weak",
+        "2": "partially-usable",
+        "3": "sufficient",
+        "4": "decision-ready"
+      }
+    }
+  },
+  "conversationRules": [
+    "Reflect the current problem and goal before challenging the frame.",
+    "Ask one decision-relevant question at a time.",
+    "Prioritize the unknown most likely to change problem validity.",
+    "Use neutral Socratic questions and avoid leading the user.",
+    "State assumptions before using them.",
+    "Stop questioning when the frame is sufficient for the current decision."
+  ],
+  "output": {
+    "schema": "../../schemas/output.schema.json",
+    "extensions": {
+      "scoreReporting": {
+        "overallThinkingScore": "evaluation.score",
+        "dimensionScores": "reasoning",
+        "status": "summary",
+        "note": "This mapping does not add properties to the universal output payload."
+      }
+    }
+  },
+  "neverRules": [
+    "Never generate solutions before validating the problem frame.",
+    "Never invent goals, obstacles, constraints, stakeholders, or evidence.",
+    "Never treat a proposed solution as a validated problem.",
+    "Never attribute motive, character, or capability without evidence.",
+    "Never hide a blocking ambiguity behind an overall score.",
+    "Never recommend a downstream skill whose prerequisites are unsatisfied."
+  ],
+  "nextSkill": [
+    {
+      "skill": "constraints",
+      "condition": "The frame is valid and governing constraints require explicit analysis.",
+      "reason": "Define the feasible problem space before evaluating options."
+    },
+    {
+      "skill": "break-it-down",
+      "condition": "The frame is valid but too broad or complex for direct analysis.",
+      "reason": "Decompose the validated problem into tractable components."
+    },
+    {
+      "skill": "gap-analysis",
+      "condition": "The frame is valid and initial and target states are sufficiently defined.",
+      "reason": "Identify and prioritize the differences between current and desired states."
+    }
+  ],
+  "examples": [
+    {
+      "name": "Simple case",
+      "input": {
+        "problemStatement": "I keep missing my morning train.",
+        "goal": "Arrive at work by 09:00 on weekdays."
+      },
+      "expectedOutput": {
+        "status": "Incomplete",
+        "nextStep": "Clarify the recurring cause of late platform arrival."
+      }
+    },
+    {
+      "name": "Business case",
+      "input": {
+        "problemStatement": "We need a new CRM because sales are declining.",
+        "goal": "Restore qualified-pipeline conversion from 14% to 20%."
+      },
+      "expectedOutput": {
+        "status": "Incomplete",
+        "logicalIssue": "A proposed solution is presented as the problem."
+      }
+    },
+    {
+      "name": "Learning case",
+      "input": {
+        "problemStatement": "I am bad at statistics.",
+        "goal": "Correctly choose and explain statistical tests in assignments."
+      },
+      "expectedOutput": {
+        "status": "Incomplete",
+        "nextStep": "Identify the observable source of test-selection errors."
+      }
+    },
+    {
+      "name": "Failure case",
+      "input": {
+        "problemStatement": "Employees lack commitment.",
+        "goal": "Improve performance."
+      },
+      "expectedOutput": {
+        "status": "Invalid",
+        "logicalIssue": "An unsupported people judgment is used as an obstacle."
+      }
+    }
+  ],
+  "references": [
+    {
+      "title": "ThinkingOS Skill Specification",
+      "citation": "../../docs/skill-specification.md"
+    },
+    {
+      "title": "ThinkingOS Reasoning Engine",
+      "citation": "../../core/engine.md"
+    },
+    {
+      "title": "ThinkingOS Validation Framework",
+      "citation": "../../core/validation.md"
+    },
+    {
+      "title": "ThinkingOS Evaluation Model",
+      "citation": "../../docs/evaluation-model.md"
+    }
+  ],
+  "tests": [
+    {
+      "name": "RP-001 complete valid frame",
+      "input": { "problemStatement": "A supported obstacle prevents a measurable goal.", "goal": "Reach the measurable goal." },
+      "expected": { "status": "Valid" }
+    },
+    {
+      "name": "RP-002 missing goal",
+      "input": { "problemStatement": "An undesirable condition exists." },
+      "expected": { "status": "Incomplete", "questionRequired": true }
+    },
+    {
+      "name": "RP-003 solution-led frame",
+      "input": { "problemStatement": "We need a new tool.", "goal": "Implement the tool." },
+      "expected": { "status": "Incomplete", "solutionGeneration": false }
+    },
+    {
+      "name": "RP-004 ambiguous goal",
+      "input": { "problemStatement": "Performance is poor.", "goal": "Improve performance." },
+      "expected": { "status": "Incomplete", "questionRequired": true }
+    },
+    {
+      "name": "RP-005 symptom as cause",
+      "input": { "problemStatement": "Delays cause our delays.", "goal": "Deliver on time." },
+      "expected": { "logicScoreMaximum": 2 }
+    },
+    {
+      "name": "RP-006 unsupported cause",
+      "input": { "problemStatement": "Low morale causes defects.", "goal": "Reduce defects." },
+      "expected": { "missingInformationIncludes": "causal evidence" }
+    },
+    {
+      "name": "RP-007 contradictory constraint",
+      "input": { "problemStatement": "Manual work is slow.", "goal": "Automate all work.", "knownConstraints": ["Automation is prohibited."] },
+      "expected": { "overallThinkingScoreMaximum": 2 }
+    },
+    {
+      "name": "RP-008 bundled problems",
+      "input": { "problemStatement": "Costs, quality, retention, and delivery are bad.", "goal": "Fix the company." },
+      "expected": { "status": "Incomplete", "questionRequired": true }
+    },
+    {
+      "name": "RP-009 alternative explanations",
+      "input": { "problemStatement": "Conversion declined.", "goal": "Restore conversion." },
+      "expected": { "alternativeExplanationsRequired": true }
+    },
+    {
+      "name": "RP-010 people judgment",
+      "input": { "problemStatement": "Employees are lazy.", "goal": "Increase output." },
+      "expected": { "unsupportedJudgmentRejected": true }
+    },
+    {
+      "name": "RP-011 output conformance",
+      "input": { "problemStatement": "A measurable gap has a supported obstacle.", "goal": "Close the measurable gap." },
+      "expected": { "outputSchema": "../../schemas/output.schema.json" }
+    },
+    {
+      "name": "RP-012 next-skill gating",
+      "input": { "problemStatement": "The problem is unknown.", "goal": "The outcome is unknown." },
+      "expected": { "downstreamSkillRecommended": false }
+    }
+  ],
+  "extensions": {
+    "goldenSkill": true,
+    "documentation": {
+      "workflow": "workflow.md",
+      "validation": "validation.md",
+      "conversation": "conversation.md",
+      "evaluation": "evaluation.md",
+      "rubric": "rubric.md",
+      "examples": "examples.md",
+      "tests": "tests.md",
+      "references": "references.md"
+    }
+  }
+}
